@@ -1,4 +1,4 @@
-class Modifier {
+export class Modifier {
   constructor(name: string, description: string) {
     this.name = name;
     this.description = description;

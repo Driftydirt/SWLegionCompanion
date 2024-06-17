@@ -1,12 +1,15 @@
 "use client";
 
+import "./app.css";
+
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Weapon } from "./weapon";
-import { Button, ListGroup } from "react-bootstrap";
+import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import WeaponViewer from "./weapon_viewer";
 import { AttackPool, displayAttackPool } from "./helpers";
 import { Unit } from "./interfaces";
+import ModifierViewer from "@/modifier_viewer";
 
 type UnitViewerProps = {
   unit: Unit;
@@ -34,6 +37,10 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     });
   };
 
+  const handleDecrementMinis = () => {
+    setCurrentMinis((prev) => prev && prev - 1);
+  };
+
   useEffect(() => {
     setNumberOfMinis(unit.getNumberOfMinis());
     setCurrentMinis(unit.getCurrentMinis());
@@ -59,31 +66,51 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   }, [currentMinis]);
 
   return (
-    <>
+    <Container>
       <div>
-        <h3>{name}</h3>
-        <div>
-          <p>
-            Number of Minis: {currentMinis}/{numberOfMinis}
-          </p>
-          {hasMaxMinis ? null : (
-            <Button
-              onClick={() => {
-                handleIncrementMinis();
-              }}
-            >
-              +
-            </Button>
-          )}{" "}
-          <Button
-            disabled={defeated}
-            onClick={() => setCurrentMinis((prev) => prev && prev - 1)}
-          >
-            -
-          </Button>
-        </div>
-        <p>Wounds: {woundsPerMini}</p>
-        <p>Courage: {courage}</p>
+        <Row sm="6">
+          <Col>
+            <h3>{name}</h3>
+          </Col>
+          <Col>
+            <div>
+              <p>
+                Number of Minis: {currentMinis}/{numberOfMinis}
+              </p>
+              <Row>
+                <Col>
+                  <Button
+                    className="btn-half"
+                    disabled={hasMaxMinis}
+                    onClick={() => {
+                      handleIncrementMinis();
+                    }}
+                  >
+                    +
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    className="btn-half"
+                    disabled={defeated}
+                    onClick={() => handleDecrementMinis()}
+                  >
+                    -
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ModifierViewer modifiers={unit.getModifiers()}></ModifierViewer>
+          </Col>
+          <Col>
+            <p>Wounds: {woundsPerMini}</p>
+            <p>Courage: {courage}</p>
+          </Col>
+        </Row>
         <h2>Weapons:</h2>
         <ListGroup>
           <ListGroup.Item>
@@ -119,6 +146,6 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
           </div>
         ) : null}
       </div>
-    </>
+    </Container>
   );
 }

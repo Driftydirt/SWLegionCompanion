@@ -1,4 +1,5 @@
 import { AttackPool } from "./helpers";
+import { Modifier } from "./modifier";
 import { Weapon } from "./weapon";
 
 export class Unit {
@@ -8,6 +9,7 @@ export class Unit {
   protected woundsPerMini: number;
   protected courage: number;
   protected weapon: Weapon;
+  protected modifiers: Modifier[] | undefined;
 
   constructor(
     name: string,
@@ -49,6 +51,10 @@ export class Unit {
 
   public getWeapon(): Weapon {
     return this.weapon;
+  }
+
+  public getModifiers(): Modifier[] | undefined {
+    return this.modifiers;
   }
 
   public generateAttackPool(): AttackPool {

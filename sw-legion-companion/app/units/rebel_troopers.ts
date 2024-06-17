@@ -1,5 +1,6 @@
 import { HeavyWeapon } from "../heavy_weapon";
 import { AttackPool } from "../helpers";
+import { Modifier } from "../modifier";
 import { Personnel } from "../personnel";
 import { Unit } from "../unit";
 import { a280 } from "../weapons/a280";
@@ -17,6 +18,12 @@ export class RebelTroopers extends Unit {
     if (heavyWeapon) this.numberOfMinis = this.numberOfMinis + 1;
     if (personnel) this.numberOfMinis = this.numberOfMinis + 1;
     this.currentMinis = this.numberOfMinis;
+    this.modifiers = [
+      new Modifier(
+        "Nimble",
+        "After a unit that has the Nimble keyword defends against an attack, if it spent at least one dodge token during any point of the attack sequence, it gains one dodge token."
+      ),
+    ];
   }
 
   public getHeavyWeapon(): HeavyWeapon | undefined {
