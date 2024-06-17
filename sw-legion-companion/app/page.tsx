@@ -3,20 +3,15 @@
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Weapon } from "./weapon";
 import { Unit } from "./unit";
-import { Button } from "react-bootstrap";
 import UnitViewer from "./unit_viewer";
+import { HeavyWeapon } from "./heavy_weapon";
+import { Personnel } from "./personnel";
+import { RebelTroopers } from "./units/rebel_troopers";
+import { z6Trooper } from "./heavy_weapons/z6_trooper";
+import { rebelTrooper } from "./personnel/rebel_trooper";
 
 export default function Home() {
-  const a280 = new Weapon(
-    "A-280 Blaster Rifle",
-    undefined,
-    1,
-    undefined,
-    1,
-    3,
-    undefined
-  );
-  const rebelTroopers = new Unit("Rebel Troopers", 4, 1, 1, a280);
+  const rebelTroopers = new RebelTroopers(z6Trooper, rebelTrooper);
   return (
     <>
       <div>

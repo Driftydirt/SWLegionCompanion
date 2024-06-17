@@ -1,18 +1,13 @@
+import { AttackPool } from "./helpers";
 import { Weapon } from "./weapon";
 
-export type AttackPool = {
-  whiteDice: number | undefined;
-  blackDice: number | undefined;
-  redDice: number | undefined;
-};
-
 export class Unit {
-  private numberOfMinis: number;
-  private currentMinis: number;
-  private name: string;
-  private woundsPerMini: number;
-  private courage: number;
-  private weapon: Weapon;
+  protected numberOfMinis: number;
+  protected currentMinis: number;
+  protected name: string;
+  protected woundsPerMini: number;
+  protected courage: number;
+  protected weapon: Weapon;
 
   constructor(
     name: string,
@@ -26,7 +21,7 @@ export class Unit {
     this.courage = courage;
     this.weapon = weapon;
     this.numberOfMinis = numberOfMinis;
-    this.currentMinis = numberOfMinis;
+    this.currentMinis = this.numberOfMinis;
   }
   public getNumberOfMinis(): number {
     return this.numberOfMinis;
@@ -57,17 +52,14 @@ export class Unit {
   }
 
   public generateAttackPool(): AttackPool {
-    const individualAttackPool = this.weapon.getAttackPool();
+    const unitAttackPool = this.weapon.getAttackPool();
+    let minis = this.currentMinis;
     const attackPool: AttackPool = {
-      whiteDice: individualAttackPool.whiteDice
-        ? this.currentMinis * individualAttackPool.whiteDice
-        : undefined,
-      blackDice: individualAttackPool.blackDice
-        ? this.currentMinis * individualAttackPool.blackDice
-        : undefined,
-      redDice: individualAttackPool.redDice
-        ? this.currentMinis * individualAttackPool.redDice
-        : undefined,
+      whiteDice: minis * unitAttackPool.whiteDice,
+
+      blackDice: minis * unitAttackPool.blackDice,
+
+      redDice: minis * unitAttackPool.redDice,
     };
     return attackPool;
   }

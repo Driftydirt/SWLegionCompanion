@@ -1,9 +1,7 @@
-import { AttackPool } from "./unit";
-
 export function displayAttackPool(attackPool: AttackPool) {
-  const hasWhiteDice = attackPool.whiteDice != undefined;
-  const hasBlackDice = attackPool.blackDice != undefined;
-  const hasRedDice = attackPool.redDice != undefined;
+  const hasWhiteDice = attackPool.whiteDice != 0;
+  const hasBlackDice = attackPool.blackDice != 0;
+  const hasRedDice = attackPool.redDice != 0;
   return (
     <>
       {hasWhiteDice ? <p>{attackPool.whiteDice} W</p> : null}
@@ -12,3 +10,8 @@ export function displayAttackPool(attackPool: AttackPool) {
     </>
   );
 }
+export type AttackPool = {
+  whiteDice: number;
+  blackDice: number;
+  redDice: number;
+};

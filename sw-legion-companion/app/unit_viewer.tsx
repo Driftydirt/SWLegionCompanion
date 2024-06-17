@@ -2,11 +2,11 @@
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Weapon } from "./weapon";
-import { AttackPool, Unit } from "./unit";
-import { Button } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import WeaponViewer from "./weapon_viewer";
-import { displayAttackPool } from "./helpers";
+import { AttackPool, displayAttackPool } from "./helpers";
+import { Unit } from "./interfaces";
 
 type UnitViewerProps = {
   unit: Unit;
@@ -21,6 +21,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   const [courage, setCourage] = useState<number>();
   const [weapon, setWeapon] = useState<Weapon>();
   const [defeated, setDefeated] = useState<boolean>(false);
+  const [hasHeavyWeapon, setHasHeavyWeapon] = useState<boolean>();
 
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>(false);
@@ -40,6 +41,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setWoundsPerMini(unit.getWoundsPerMini());
     setCourage(unit.getCourage());
     setWeapon(unit.getWeapon());
+    setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
   }, [unit]);
 
   useEffect(() => {
@@ -82,8 +84,21 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
         </div>
         <p>Wounds: {woundsPerMini}</p>
         <p>Courage: {courage}</p>
-        Weapons:
-        <WeaponViewer weapon={weapon}></WeaponViewer>
+        <h2>Weapons:</h2>
+        <ListGroup>
+          <ListGroup.Item>
+            <h3>Unit Weapon:</h3>
+            <WeaponViewer weapon={weapon}></WeaponViewer>
+          </ListGroup.Item>
+          {hasHeavyWeapon ? (
+            <ListGroup.Item>
+              <h3>Heavy Weapon:</h3>
+              <WeaponViewer
+                weapon={unit.getHeavyWeapon()?.getWeapon()}
+              ></WeaponViewer>
+            </ListGroup.Item>
+          ) : null}
+        </ListGroup>
         {!defeated ? (
           <div>
             <Button onClick={() => setAttackPool(unit.generateAttackPool())}>

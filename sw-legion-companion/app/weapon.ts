@@ -1,4 +1,4 @@
-import { AttackPool } from "./unit";
+import { AttackPool } from "./helpers";
 
 export class Weapon {
   private name: string;
@@ -9,9 +9,9 @@ export class Weapon {
   private modifiers: Modifier[] | undefined;
   constructor(
     name: string,
-    whiteDice: number | undefined,
-    blackDice: number | undefined,
-    redDice: number | undefined,
+    whiteDice: number,
+    blackDice: number,
+    redDice: number,
     minRange: number,
     maxRange: number,
     modifiers: Modifier[] | undefined

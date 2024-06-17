@@ -1,10 +1,8 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Weapon } from "./weapon";
-import { AttackPool, Unit } from "./unit";
-import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { displayAttackPool } from "./helpers";
+import { AttackPool, displayAttackPool } from "./helpers";
 
 type WeaponViewerProps = {
   weapon: Weapon | undefined;
@@ -28,7 +26,7 @@ export default function WeaponViewer({ weapon }: WeaponViewerProps) {
   return (
     <>
       <div>
-        <h3>{name}</h3>
+        <h4>{name}</h4>
         {attackPool && displayAttackPool(attackPool)}
       </div>
     </>
