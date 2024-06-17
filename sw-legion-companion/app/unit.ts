@@ -8,6 +8,7 @@ export type AttackPool = {
 
 export class Unit {
   private numberOfMinis: number;
+  private currentMinis: number;
   private name: string;
   private woundsPerMini: number;
   private courage: number;
@@ -25,9 +26,18 @@ export class Unit {
     this.courage = courage;
     this.weapon = weapon;
     this.numberOfMinis = numberOfMinis;
+    this.currentMinis = numberOfMinis;
   }
   public getNumberOfMinis(): number {
     return this.numberOfMinis;
+  }
+
+  public getCurrentMinis(): number {
+    return this.currentMinis;
+  }
+
+  public setCurrentMinis(value: number) {
+    this.currentMinis = value;
   }
 
   public getName(): string {
@@ -50,13 +60,13 @@ export class Unit {
     const individualAttackPool = this.weapon.getAttackPool();
     const attackPool: AttackPool = {
       whiteDice: individualAttackPool.whiteDice
-        ? this.numberOfMinis * individualAttackPool.whiteDice
+        ? this.currentMinis * individualAttackPool.whiteDice
         : undefined,
       blackDice: individualAttackPool.blackDice
-        ? this.numberOfMinis * individualAttackPool.blackDice
+        ? this.currentMinis * individualAttackPool.blackDice
         : undefined,
       redDice: individualAttackPool.redDice
-        ? this.numberOfMinis * individualAttackPool.redDice
+        ? this.currentMinis * individualAttackPool.redDice
         : undefined,
     };
     return attackPool;

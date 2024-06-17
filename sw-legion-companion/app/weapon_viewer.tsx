@@ -29,7 +29,7 @@ export default function WeaponViewer({ weapon }: WeaponViewerProps) {
     <>
       <div>
         <h3>{name}</h3>
-        {displayAttackPool(attackPool)}
+        {attackPool && displayAttackPool(attackPool)}
       </div>
     </>
   );

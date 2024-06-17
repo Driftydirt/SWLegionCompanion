@@ -1,7 +1,6 @@
 import { AttackPool } from "./unit";
 
-export function displayAttackPool(attackPool: AttackPool | undefined) {
-  if (attackPool === undefined) return;
+export function displayAttackPool(attackPool: AttackPool) {
   const hasWhiteDice = attackPool.whiteDice != undefined;
   const hasBlackDice = attackPool.blackDice != undefined;
   const hasRedDice = attackPool.redDice != undefined;
