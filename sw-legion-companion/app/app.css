@@ -1,3 +1,6 @@
 .btn-half {
   width: 100%;
 }
+.modifiers {
+  display: inline-block;
+}

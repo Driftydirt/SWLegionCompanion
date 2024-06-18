@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
-import { Col, Overlay, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Modifier } from "./app/modifier";
 
 type ModifierViewerProps = {
@@ -21,17 +21,17 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
 
   return (
     <div>
-      <Col>
+      <Col sm={2}>
         {hasModifiers
           ? modifiers &&
             modifiers.map((e) => (
               <>
                 <OverlayTrigger
-                  placement="bottom"
+                  placement="right"
                   delay={{ show: 100, hide: 400 }}
                   overlay={<Tooltip>{e.getDescription()}</Tooltip>}
                 >
-                  <p>{e.getName()}</p>
+                  <p className="modifiers">{e.getName()}</p>
                 </OverlayTrigger>
               </>
             ))
