@@ -23,7 +23,9 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   const [woundsPerMini, setWoundsPerMini] = useState<number>();
   const [courage, setCourage] = useState<number>();
   const [weapon, setWeapon] = useState<Weapon>();
-  const [defeated, setDefeated] = useState<boolean>(false);
+  const [unitDefeated, setUnitDefeated] = useState<boolean>(false);
+  const [heavyWeaponDefeated, setHeavyWeaponDefeated] =
+    useState<boolean>(false);
   const [hasHeavyWeapon, setHasHeavyWeapon] = useState<boolean>();
 
   const [attackPool, setAttackPool] = useState<AttackPool>();
@@ -49,6 +51,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setCourage(unit.getCourage());
     setWeapon(unit.getWeapon());
     setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
+    setHeavyWeaponDefeated(unit.getHeavyWeaponDefeated());
   }, [unit]);
 
   useEffect(() => {
@@ -58,12 +61,20 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   useEffect(() => {
     if (currentMinis === undefined) return;
 
-    if (defeated && currentMinis === 0) return;
+    if (unitDefeated && currentMinis === 0) return;
 
-    setDefeated(currentMinis === 0);
+    setUnitDefeated(currentMinis === 0);
     numberOfMinis && setHasMaxMinis(numberOfMinis === currentMinis);
     unit.setCurrentMinis(currentMinis);
   }, [currentMinis]);
+
+  useEffect(() => {
+    unit.setDefeated(unitDefeated);
+  }, [unitDefeated]);
+
+  useEffect(() => {
+    unit.setHeavyWeaponDefeated(heavyWeaponDefeated);
+  }, [heavyWeaponDefeated]);
 
   return (
     <Container>
@@ -75,7 +86,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
           <Col>
             <div>
               <p>
-                Number of Minis: {currentMinis}/{numberOfMinis}
+                Regular Minis: {currentMinis}/{numberOfMinis}
               </p>
               <Row>
                 <Col>
@@ -92,7 +103,10 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                 <Col>
                   <Button
                     className="btn-half"
-                    disabled={defeated}
+                    disabled={
+                      unitDefeated ||
+                      (currentMinis === 1 && !heavyWeaponDefeated)
+                    }
                     onClick={() => handleDecrementMinis()}
                   >
                     -
@@ -100,6 +114,33 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                 </Col>
               </Row>
             </div>
+            {hasHeavyWeapon ? (
+              <div>
+                Heavy Weapon Minis: {heavyWeaponDefeated ? 0 : 1}/1
+                <Row>
+                  <Col>
+                    <Button
+                      className="btn-half"
+                      disabled={!heavyWeaponDefeated}
+                      onClick={() => {
+                        setHeavyWeaponDefeated(false);
+                      }}
+                    >
+                      +
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      className="btn-half"
+                      disabled={heavyWeaponDefeated}
+                      onClick={() => setHeavyWeaponDefeated(true)}
+                    >
+                      -
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+            ) : null}
           </Col>
         </Row>
         <Row>
@@ -126,7 +167,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
             </ListGroup.Item>
           ) : null}
         </ListGroup>
-        {!defeated ? (
+        {!unitDefeated ? (
           <div>
             <Button onClick={() => setAttackPool(unit.generateAttackPool())}>
               Generate Attack Pool!

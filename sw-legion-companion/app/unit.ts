@@ -3,17 +3,18 @@ import { Modifier } from "./modifier";
 import { Weapon } from "./weapon";
 
 export class Unit {
-  protected numberOfMinis: number;
-  protected currentMinis: number;
+  protected baseMinis: number;
+  protected currentBaseMinis: number;
   protected name: string;
   protected woundsPerMini: number;
   protected courage: number;
   protected weapon: Weapon;
   protected modifiers: Modifier[] | undefined;
+  protected defeated: boolean;
 
   constructor(
     name: string,
-    numberOfMinis: number,
+    baseMinis: number,
     woundsPerMini: number,
     courage: number,
     weapon: Weapon
@@ -22,19 +23,20 @@ export class Unit {
     this.woundsPerMini = woundsPerMini;
     this.courage = courage;
     this.weapon = weapon;
-    this.numberOfMinis = numberOfMinis;
-    this.currentMinis = this.numberOfMinis;
+    this.baseMinis = baseMinis;
+    this.currentBaseMinis = this.baseMinis;
+    this.defeated = false;
   }
   public getNumberOfMinis(): number {
-    return this.numberOfMinis;
+    return this.baseMinis;
   }
 
   public getCurrentMinis(): number {
-    return this.currentMinis;
+    return this.currentBaseMinis;
   }
 
   public setCurrentMinis(value: number) {
-    this.currentMinis = value;
+    this.currentBaseMinis = value;
   }
 
   public getName(): string {
@@ -57,9 +59,13 @@ export class Unit {
     return this.modifiers;
   }
 
+  public setDefeated(value: boolean) {
+    this.defeated = value;
+  }
+
   public generateAttackPool(): AttackPool {
     const unitAttackPool = this.weapon.getAttackPool();
-    let minis = this.currentMinis;
+    let minis = this.currentBaseMinis;
     const attackPool: AttackPool = {
       whiteDice: minis * unitAttackPool.whiteDice,
 

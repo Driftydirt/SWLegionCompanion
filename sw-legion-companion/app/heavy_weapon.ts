@@ -1,3 +1,4 @@
+import { Modifier } from "./modifier";
 import { Weapon } from "./weapon";
 
 export class HeavyWeapon {
