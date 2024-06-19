@@ -7,7 +7,7 @@ import { Row, Col, Button } from "react-bootstrap";
 
 type WeaponViewerProps = {
   weapon: Weapon;
-  currentMinis: number | undefined;
+  initCurrentMinis: number | undefined;
   freeMinis: number;
   maxMinis: number;
   handleChangingMinisPerWeapon: (weapon: Weapon, minis: number) => void;
@@ -15,7 +15,7 @@ type WeaponViewerProps = {
 
 export default function WeaponViewer({
   weapon,
-  currentMinis,
+  initCurrentMinis,
   freeMinis,
   maxMinis,
   handleChangingMinisPerWeapon,
@@ -25,8 +25,22 @@ export default function WeaponViewer({
   const [minRange, setMinRange] = useState<number>();
   const [maxRange, setMaxRange] = useState<number>();
   const [modifiers, setModifiers] = useState<number>();
-  if (currentMinis === undefined) currentMinis = 0;
+  const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
 
+  const handleMaxMinis = () => {
+    if (currentMinis != undefined) setCurrentMinis(maxMinis);
+  };
+
+  const handleIncrementMinis = () => {
+    if (currentMinis != undefined) setCurrentMinis(currentMinis + 1);
+  };
+
+  const handleDecrementMinis = () => {
+    if (currentMinis != undefined) setCurrentMinis(currentMinis - 1);
+  };
+  const handleMinimumMinis = () => {
+    if (currentMinis != undefined) setCurrentMinis(0);
+  };
   useEffect(() => {
     setName(weapon.getName());
     setAttackPool(weapon.getAttackPool());
@@ -34,7 +48,15 @@ export default function WeaponViewer({
     setMaxRange(weapon.getMaxRange());
   }, [weapon]);
 
-  useEffect(() => {}, [currentMinis]);
+  useEffect(() => {
+    console.log(maxMinis);
+
+    if (currentMinis === undefined) setCurrentMinis(0);
+    currentMinis && handleChangingMinisPerWeapon(weapon, currentMinis);
+    if (currentMinis && currentMinis > maxMinis) {
+      setCurrentMinis(maxMinis);
+    }
+  }, [maxMinis]);
 
   return (
     <>
@@ -48,12 +70,16 @@ export default function WeaponViewer({
             <Button
               className="btn-half"
               disabled={freeMinis === 0}
-              onClick={() => {
-                currentMinis != undefined
-                  ? (currentMinis = currentMinis + 1)
-                  : (currentMinis = 0);
-                handleChangingMinisPerWeapon(weapon, currentMinis);
-              }}
+              onClick={() => handleMaxMinis()}
+            >
+              All Available
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              className="btn-half"
+              disabled={freeMinis === 0}
+              onClick={() => handleIncrementMinis()}
             >
               +
             </Button>
@@ -62,14 +88,18 @@ export default function WeaponViewer({
             <Button
               className="btn-half"
               disabled={currentMinis === 0}
-              onClick={() => {
-                currentMinis != undefined
-                  ? (currentMinis = currentMinis - 1)
-                  : (currentMinis = 0);
-                handleChangingMinisPerWeapon(weapon, currentMinis);
-              }}
+              onClick={() => handleDecrementMinis()}
             >
               -
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              className="btn-half"
+              disabled={currentMinis === 0}
+              onClick={() => handleMinimumMinis()}
+            >
+              Min
             </Button>
           </Col>
         </Row>

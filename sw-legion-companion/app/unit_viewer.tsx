@@ -133,7 +133,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                   <Col>
                     <Button
                       className="btn-half"
-                      disabled={!heavyWeaponDefeated}
+                      disabled={!heavyWeaponDefeated || unitDefeated}
                       onClick={() => {
                         setHeavyWeaponDefeated(false);
                       }}
@@ -164,11 +164,16 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
             <p>Courage: {courage}</p>
           </Col>
         </Row>
-        {weapons && minisPerWeapon && numberOfMinis && (
+        {weapons && minisPerWeapon && currentMinis != undefined && (
           <WeaponOverview
             weapons={weapons}
             heavyWeapon={heavyWeapon}
-            maxMinis={heavyWeapon ? numberOfMinis + 1 : numberOfMinis}
+            heavyWeaponDefeated={heavyWeaponDefeated}
+            maxMinis={
+              heavyWeapon && !heavyWeaponDefeated
+                ? currentMinis + 1
+                : currentMinis
+            }
             minisPerWeapon={minisPerWeapon}
           ></WeaponOverview>
         )}

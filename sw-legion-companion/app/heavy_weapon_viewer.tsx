@@ -7,18 +7,17 @@ import { Row, Col, Button } from "react-bootstrap";
 
 type HeavyWeaponViewerProps = {
   weapon: Weapon;
-  currentMinis: number | undefined;
+  initCurrentMinis: number | undefined;
   freeMinis: number;
-  maxMinis: number;
-
+  heavyWeaponDefeated: boolean;
   handleChangingMinisPerWeapon: (weapon: Weapon, minis: number) => void;
 };
 
 export default function HeavyWeaponViewer({
   weapon,
-  currentMinis,
+  initCurrentMinis,
   freeMinis,
-  maxMinis,
+  heavyWeaponDefeated,
 
   handleChangingMinisPerWeapon,
 }: HeavyWeaponViewerProps) {
@@ -27,7 +26,15 @@ export default function HeavyWeaponViewer({
   const [minRange, setMinRange] = useState<number>();
   const [maxRange, setMaxRange] = useState<number>();
   const [modifiers, setModifiers] = useState<number>();
-  if (currentMinis === undefined) currentMinis = 0;
+  const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
+
+  const handleIncrementMinis = () => {
+    if (currentMinis != undefined) setCurrentMinis(currentMinis + 1);
+  };
+
+  const handleDecrementMinis = () => {
+    if (currentMinis != undefined) setCurrentMinis(currentMinis - 1);
+  };
 
   useEffect(() => {
     setName(weapon.getName());
@@ -36,24 +43,35 @@ export default function HeavyWeaponViewer({
     setMaxRange(weapon.getMaxRange());
   }, [weapon]);
 
+  useEffect(() => {
+    if (currentMinis === undefined) setCurrentMinis(0);
+    currentMinis && handleChangingMinisPerWeapon(weapon, currentMinis);
+  }, [currentMinis]);
+
+  useEffect(() => {
+    if (heavyWeaponDefeated && weapon) {
+      setCurrentMinis(0);
+      handleChangingMinisPerWeapon(weapon, 0);
+    }
+  }, [heavyWeaponDefeated]);
+
   return (
     <>
       <div>
         <h4>{name}</h4>
         <p>
-          {currentMinis}/{1}
+          {currentMinis}/{heavyWeaponDefeated ? 0 : 1}
         </p>
         <Row>
           <Col>
             <Button
               className="btn-half"
-              disabled={freeMinis === 0 || currentMinis >= 1}
-              onClick={() => {
-                currentMinis != undefined
-                  ? (currentMinis = currentMinis + 1)
-                  : (currentMinis = 0);
-                handleChangingMinisPerWeapon(weapon, currentMinis);
-              }}
+              disabled={
+                freeMinis === 0 ||
+                (currentMinis && currentMinis >= 1) ||
+                heavyWeaponDefeated
+              }
+              onClick={() => handleIncrementMinis()}
             >
               +
             </Button>
@@ -62,12 +80,7 @@ export default function HeavyWeaponViewer({
             <Button
               className="btn-half"
               disabled={currentMinis === 0}
-              onClick={() => {
-                currentMinis != undefined
-                  ? (currentMinis = currentMinis - 1)
-                  : (currentMinis = 0);
-                handleChangingMinisPerWeapon(weapon, currentMinis);
-              }}
+              onClick={() => handleDecrementMinis()}
             >
               -
             </Button>

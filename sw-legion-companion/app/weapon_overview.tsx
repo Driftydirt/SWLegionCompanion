@@ -11,6 +11,7 @@ type WeaponOverviewProps = {
   heavyWeapon: HeavyWeapon | undefined;
   maxMinis: number;
   minisPerWeapon: MinisPerWeapon;
+  heavyWeaponDefeated: boolean;
 };
 //updates minis per weapon for using in generating attack pool
 export default function WeaponOverview({
@@ -18,6 +19,7 @@ export default function WeaponOverview({
   heavyWeapon,
   maxMinis,
   minisPerWeapon,
+  heavyWeaponDefeated,
 }: WeaponOverviewProps) {
   let allocatedMinis = 0;
   minisPerWeapon.forEach((minis) => (allocatedMinis = allocatedMinis + minis));
@@ -30,6 +32,7 @@ export default function WeaponOverview({
     );
     setFreeMinis(maxMinis - allocatedMinis);
   };
+
   return (
     <>
       <h2>Weapons:</h2>
@@ -39,7 +42,7 @@ export default function WeaponOverview({
             <WeaponViewer
               weapon={weapon}
               maxMinis={maxMinis}
-              currentMinis={minisPerWeapon.get(weapon)}
+              initCurrentMinis={minisPerWeapon.get(weapon)}
               freeMinis={freeMinis}
               handleChangingMinisPerWeapon={handleChangingMinisPerWeapon}
             ></WeaponViewer>
@@ -49,9 +52,9 @@ export default function WeaponOverview({
           <ListGroup.Item>
             <HeavyWeaponViewer
               weapon={heavyWeapon}
-              maxMinis={maxMinis}
-              currentMinis={minisPerWeapon.get(heavyWeapon)}
+              initCurrentMinis={minisPerWeapon.get(heavyWeapon)}
               freeMinis={freeMinis}
+              heavyWeaponDefeated={heavyWeaponDefeated}
               handleChangingMinisPerWeapon={handleChangingMinisPerWeapon}
             ></HeavyWeaponViewer>
           </ListGroup.Item>
