@@ -11,7 +11,7 @@ export class UnitHeavyWeapon extends Unit {
     numberOfMinis: number,
     woundsPerMini: number,
     courage: number,
-    weapon: Weapon,
+    weapon: Weapon[],
     heavyWeapon: HeavyWeapon | undefined
   ) {
     super(name, numberOfMinis, woundsPerMini, courage, weapon);
@@ -24,16 +24,5 @@ export class UnitHeavyWeapon extends Unit {
   }
   public setHeavyWeaponDefeated(value: boolean) {
     this.heavyWeaponDefeated = value;
-  }
-  public generateAttackPool(): AttackPool {
-    const baseAttackPool = super.generateAttackPool();
-    const heavyWeaponAttackPool = this.heavyWeapon?.getWeapon().getAttackPool();
-    if (!heavyWeaponAttackPool || this.heavyWeaponDefeated)
-      return baseAttackPool;
-    baseAttackPool.whiteDice =
-      baseAttackPool.whiteDice + heavyWeaponAttackPool.whiteDice;
-    baseAttackPool.blackDice + heavyWeaponAttackPool.blackDice;
-    baseAttackPool.redDice + heavyWeaponAttackPool.redDice;
-    return baseAttackPool;
   }
 }

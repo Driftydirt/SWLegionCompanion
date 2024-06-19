@@ -1,36 +1,38 @@
 import { Modifier } from "./modifier";
 import { Weapon } from "./weapon";
 
-export class HeavyWeapon {
-  private weapon: Weapon;
-  private name: string;
+export class HeavyWeapon extends Weapon {
   private health: number;
-  private modifiers: Modifier[] | undefined;
+  private cardModifiers: Modifier[] | undefined;
   constructor(
-    weapon: Weapon,
     name: string,
     health: number,
-    modifiers: Modifier[] | undefined
+    whiteDice: number,
+    blackDice: number,
+    redDice: number,
+    minRange: number,
+    maxRange: number,
+    cardModifiers: Modifier[] | undefined,
+    weaponModifiers: Modifier[] | undefined
   ) {
-    this.weapon = weapon;
-    this.name = name;
+    super(
+      name,
+      whiteDice,
+      blackDice,
+      redDice,
+      minRange,
+      maxRange,
+      weaponModifiers
+    );
     this.health = health;
-    this.modifiers = modifiers;
-  }
-
-  public getWeapon(): Weapon {
-    return this.weapon;
-  }
-
-  public getName(): string {
-    return this.name;
+    this.cardModifiers = cardModifiers;
   }
 
   public getHealth(): number {
     return this.health;
   }
 
-  public getModifiers(): Modifier[] | undefined {
-    return this.modifiers;
+  public getCardModifiers(): Modifier[] | undefined {
+    return this.cardModifiers;
   }
 }

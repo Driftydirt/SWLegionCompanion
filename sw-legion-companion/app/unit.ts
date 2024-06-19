@@ -1,4 +1,3 @@
-import { AttackPool } from "./helpers";
 import { Modifier } from "./modifier";
 import { Weapon } from "./weapon";
 
@@ -8,7 +7,7 @@ export class Unit {
   protected name: string;
   protected woundsPerMini: number;
   protected courage: number;
-  protected weapon: Weapon;
+  protected weapon: Weapon[];
   protected modifiers: Modifier[] | undefined;
   protected defeated: boolean;
 
@@ -17,7 +16,7 @@ export class Unit {
     baseMinis: number,
     woundsPerMini: number,
     courage: number,
-    weapon: Weapon
+    weapon: Weapon[]
   ) {
     this.name = name;
     this.woundsPerMini = woundsPerMini;
@@ -51,7 +50,7 @@ export class Unit {
     return this.courage;
   }
 
-  public getWeapon(): Weapon {
+  public getWeapon(): Weapon[] {
     return this.weapon;
   }
 
@@ -61,18 +60,5 @@ export class Unit {
 
   public setDefeated(value: boolean) {
     this.defeated = value;
-  }
-
-  public generateAttackPool(): AttackPool {
-    const unitAttackPool = this.weapon.getAttackPool();
-    let minis = this.currentBaseMinis;
-    const attackPool: AttackPool = {
-      whiteDice: minis * unitAttackPool.whiteDice,
-
-      blackDice: minis * unitAttackPool.blackDice,
-
-      redDice: minis * unitAttackPool.redDice,
-    };
-    return attackPool;
   }
 }

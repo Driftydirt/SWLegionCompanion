@@ -11,7 +11,7 @@ export class UnitPersonnel extends Unit {
     numberOfMinis: number,
     woundsPerMini: number,
     courage: number,
-    weapon: Weapon,
+    weapon: Weapon[],
     personnel: Personnel | undefined
   ) {
     super(name, numberOfMinis, woundsPerMini, courage, weapon);
