@@ -28,7 +28,7 @@ export default function WeaponViewer({
   const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
 
   const handleMaxMinis = () => {
-    if (currentMinis != undefined) setCurrentMinis(maxMinis);
+    if (currentMinis != undefined) setCurrentMinis(currentMinis + freeMinis);
   };
 
   const handleIncrementMinis = () => {
@@ -49,8 +49,12 @@ export default function WeaponViewer({
   }, [weapon]);
 
   useEffect(() => {
-    console.log(maxMinis);
+    if (currentMinis === undefined) setCurrentMinis(0);
+    currentMinis != undefined &&
+      handleChangingMinisPerWeapon(weapon, currentMinis);
+  }, [currentMinis]);
 
+  useEffect(() => {
     if (currentMinis === undefined) setCurrentMinis(0);
     currentMinis && handleChangingMinisPerWeapon(weapon, currentMinis);
     if (currentMinis && currentMinis > maxMinis) {

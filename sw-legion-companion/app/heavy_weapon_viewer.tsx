@@ -45,7 +45,8 @@ export default function HeavyWeaponViewer({
 
   useEffect(() => {
     if (currentMinis === undefined) setCurrentMinis(0);
-    currentMinis && handleChangingMinisPerWeapon(weapon, currentMinis);
+    currentMinis != undefined &&
+      handleChangingMinisPerWeapon(weapon, currentMinis);
   }, [currentMinis]);
 
   useEffect(() => {

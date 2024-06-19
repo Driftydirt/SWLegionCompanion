@@ -39,8 +39,6 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>(false);
 
-  const [minisPerWeapon, setMinisPerWeapon] = useState<MinisPerWeapon>();
-
   const handleIncrementMinis = () => {
     setCurrentMinis((prev) => {
       if (currentMinis && numberOfMinis && currentMinis + 1 > numberOfMinis)
@@ -63,7 +61,6 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setHeavyWeapon(unit.getHeavyWeapon());
     setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
     setHeavyWeaponDefeated(unit.getHeavyWeaponDefeated());
-    setMinisPerWeapon(new Map());
   }, [unit]);
 
   useEffect(() => {
@@ -164,7 +161,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
             <p>Courage: {courage}</p>
           </Col>
         </Row>
-        {weapons && minisPerWeapon && currentMinis != undefined && (
+        {weapons && currentMinis != undefined && (
           <WeaponOverview
             weapons={weapons}
             heavyWeapon={heavyWeapon}
@@ -174,32 +171,9 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                 ? currentMinis + 1
                 : currentMinis
             }
-            minisPerWeapon={minisPerWeapon}
+            unitDefeated={unitDefeated}
           ></WeaponOverview>
         )}
-        {!unitDefeated ? (
-          <div>
-            <Button
-              onClick={() => {
-                setAttackPool(generateAttackPool(minisPerWeapon));
-              }}
-            >
-              Generate Attack Pool!
-            </Button>{" "}
-            {hasAttackPool ? (
-              <div>
-                {" "}
-                {attackPool && displayAttackPool(attackPool)}
-                <Button
-                  variant="danger"
-                  onClick={() => setAttackPool(undefined)}
-                >
-                  Clear Attack Pool
-                </Button>
-              </div>
-            ) : null}{" "}
-          </div>
-        ) : null}
       </div>
     </Container>
   );

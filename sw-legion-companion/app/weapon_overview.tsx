@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import { MinisPerWeapon } from "./helpers";
+import {
+  AttackPool,
+  MinisPerWeapon,
+  displayAttackPool,
+  generateAttackPool,
+} from "./helpers";
 import { Weapon } from "./weapon";
-import { ListGroup } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import WeaponViewer from "./weapon_viewer";
 import { HeavyWeapon } from "./heavy_weapon";
 import HeavyWeaponViewer from "./heavy_weapon_viewer";
@@ -10,28 +15,43 @@ type WeaponOverviewProps = {
   weapons: Weapon[];
   heavyWeapon: HeavyWeapon | undefined;
   maxMinis: number;
-  minisPerWeapon: MinisPerWeapon;
   heavyWeaponDefeated: boolean;
+  unitDefeated: boolean;
 };
 //updates minis per weapon for using in generating attack pool
 export default function WeaponOverview({
   weapons,
   heavyWeapon,
   maxMinis,
-  minisPerWeapon,
   heavyWeaponDefeated,
+  unitDefeated,
 }: WeaponOverviewProps) {
+  const [attackPool, setAttackPool] = useState<AttackPool>();
+  const [hasAttackPool, setHasAttackPool] = useState<boolean>();
+  const [minisPerWeapon, setMinisPerWeapon] = useState<MinisPerWeapon>();
   let allocatedMinis = 0;
-  minisPerWeapon.forEach((minis) => (allocatedMinis = allocatedMinis + minis));
+  minisPerWeapon &&
+    minisPerWeapon.forEach(
+      (minis) => (allocatedMinis = allocatedMinis + minis)
+    );
   const [freeMinis, setFreeMinis] = useState<number>(maxMinis - allocatedMinis);
   const handleChangingMinisPerWeapon = (weapon: Weapon, minis: number) => {
+    if (minisPerWeapon === undefined) return;
     minisPerWeapon.set(weapon, minis);
     let allocatedMinis = 0;
     minisPerWeapon.forEach(
       (minis) => (allocatedMinis = allocatedMinis + minis)
     );
+    setMinisPerWeapon(minisPerWeapon);
     setFreeMinis(maxMinis - allocatedMinis);
   };
+
+  useEffect(() => {
+    if (!minisPerWeapon) setMinisPerWeapon(new Map());
+  }, [minisPerWeapon]);
+  useEffect(() => {
+    setHasAttackPool(attackPool != undefined);
+  }, [attackPool]);
 
   return (
     <>
@@ -42,7 +62,7 @@ export default function WeaponOverview({
             <WeaponViewer
               weapon={weapon}
               maxMinis={maxMinis}
-              initCurrentMinis={minisPerWeapon.get(weapon)}
+              initCurrentMinis={minisPerWeapon && minisPerWeapon.get(weapon)}
               freeMinis={freeMinis}
               handleChangingMinisPerWeapon={handleChangingMinisPerWeapon}
             ></WeaponViewer>
@@ -52,7 +72,9 @@ export default function WeaponOverview({
           <ListGroup.Item>
             <HeavyWeaponViewer
               weapon={heavyWeapon}
-              initCurrentMinis={minisPerWeapon.get(heavyWeapon)}
+              initCurrentMinis={
+                minisPerWeapon && minisPerWeapon.get(heavyWeapon)
+              }
               freeMinis={freeMinis}
               heavyWeaponDefeated={heavyWeaponDefeated}
               handleChangingMinisPerWeapon={handleChangingMinisPerWeapon}
@@ -60,6 +82,26 @@ export default function WeaponOverview({
           </ListGroup.Item>
         ) : null}
       </ListGroup>
+      {!unitDefeated && freeMinis != maxMinis ? (
+        <div>
+          <Button
+            onClick={() => {
+              setAttackPool(generateAttackPool(minisPerWeapon));
+            }}
+          >
+            Generate Attack Pool!
+          </Button>{" "}
+          {hasAttackPool ? (
+            <div>
+              {" "}
+              {attackPool && displayAttackPool(attackPool)}
+              <Button variant="danger" onClick={() => setAttackPool(undefined)}>
+                Clear Attack Pool
+              </Button>
+            </div>
+          ) : null}{" "}
+        </div>
+      ) : null}
     </>
   );
 }
