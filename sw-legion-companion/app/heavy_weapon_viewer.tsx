@@ -5,21 +5,23 @@ import { useEffect, useState } from "react";
 import { AttackPool, displayAttackPool } from "./helpers";
 import { Row, Col, Button } from "react-bootstrap";
 
-type WeaponViewerProps = {
+type HeavyWeaponViewerProps = {
   weapon: Weapon;
   currentMinis: number | undefined;
   freeMinis: number;
   maxMinis: number;
+
   handleChangingMinisPerWeapon: (weapon: Weapon, minis: number) => void;
 };
 
-export default function WeaponViewer({
+export default function HeavyWeaponViewer({
   weapon,
   currentMinis,
   freeMinis,
   maxMinis,
+
   handleChangingMinisPerWeapon,
-}: WeaponViewerProps) {
+}: HeavyWeaponViewerProps) {
   const [name, setName] = useState<string>();
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [minRange, setMinRange] = useState<number>();
@@ -34,20 +36,18 @@ export default function WeaponViewer({
     setMaxRange(weapon.getMaxRange());
   }, [weapon]);
 
-  useEffect(() => {}, [currentMinis]);
-
   return (
     <>
       <div>
         <h4>{name}</h4>
         <p>
-          {currentMinis}/{maxMinis}
+          {currentMinis}/{1}
         </p>
         <Row>
           <Col>
             <Button
               className="btn-half"
-              disabled={freeMinis === 0}
+              disabled={freeMinis === 0 || currentMinis >= 1}
               onClick={() => {
                 currentMinis != undefined
                   ? (currentMinis = currentMinis + 1)

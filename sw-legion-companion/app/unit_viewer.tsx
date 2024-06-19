@@ -7,9 +7,16 @@ import { Weapon } from "./weapon";
 import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import WeaponViewer from "./weapon_viewer";
-import { AttackPool, displayAttackPool } from "./helpers";
+import {
+  AttackPool,
+  MinisPerWeapon,
+  displayAttackPool,
+  generateAttackPool,
+} from "./helpers";
 import { Unit } from "./interfaces";
 import ModifierViewer from "@/modifier_viewer";
+import WeaponOverview from "./weapon_overview";
+import { HeavyWeapon } from "./heavy_weapon";
 
 type UnitViewerProps = {
   unit: Unit;
@@ -22,14 +29,17 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   const [name, setName] = useState<string>();
   const [woundsPerMini, setWoundsPerMini] = useState<number>();
   const [courage, setCourage] = useState<number>();
-  const [weapon, setWeapon] = useState<Weapon>();
+  const [weapons, setWeapons] = useState<Weapon[]>();
   const [unitDefeated, setUnitDefeated] = useState<boolean>(false);
   const [heavyWeaponDefeated, setHeavyWeaponDefeated] =
     useState<boolean>(false);
   const [hasHeavyWeapon, setHasHeavyWeapon] = useState<boolean>();
+  const [heavyWeapon, setHeavyWeapon] = useState<HeavyWeapon>();
 
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>(false);
+
+  const [minisPerWeapon, setMinisPerWeapon] = useState<MinisPerWeapon>();
 
   const handleIncrementMinis = () => {
     setCurrentMinis((prev) => {
@@ -49,9 +59,11 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setName(unit.getName());
     setWoundsPerMini(unit.getWoundsPerMini());
     setCourage(unit.getCourage());
-    setWeapon(unit.getWeapon());
+    setWeapons(unit.getWeapon());
+    setHeavyWeapon(unit.getHeavyWeapon());
     setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
     setHeavyWeaponDefeated(unit.getHeavyWeaponDefeated());
+    setMinisPerWeapon(new Map());
   }, [unit]);
 
   useEffect(() => {
@@ -152,24 +164,21 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
             <p>Courage: {courage}</p>
           </Col>
         </Row>
-        <h2>Weapons:</h2>
-        <ListGroup>
-          <ListGroup.Item>
-            <h3>Unit Weapon:</h3>
-            <WeaponViewer weapon={weapon}></WeaponViewer>
-          </ListGroup.Item>
-          {hasHeavyWeapon ? (
-            <ListGroup.Item>
-              <h3>Heavy Weapon:</h3>
-              <WeaponViewer
-                weapon={unit.getHeavyWeapon()?.getWeapon()}
-              ></WeaponViewer>
-            </ListGroup.Item>
-          ) : null}
-        </ListGroup>
+        {weapons && minisPerWeapon && numberOfMinis && (
+          <WeaponOverview
+            weapons={weapons}
+            heavyWeapon={heavyWeapon}
+            maxMinis={heavyWeapon ? numberOfMinis + 1 : numberOfMinis}
+            minisPerWeapon={minisPerWeapon}
+          ></WeaponOverview>
+        )}
         {!unitDefeated ? (
           <div>
-            <Button onClick={() => setAttackPool(unit.generateAttackPool())}>
+            <Button
+              onClick={() => {
+                setAttackPool(generateAttackPool(minisPerWeapon));
+              }}
+            >
               Generate Attack Pool!
             </Button>{" "}
             {hasAttackPool ? (
