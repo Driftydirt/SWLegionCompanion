@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Weapon } from "./weapon";
 import { useEffect, useState } from "react";
 import { AttackPool, displayAttackPool } from "./helpers";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 
 type WeaponViewerProps = {
   weapon: Weapon;
@@ -65,21 +65,19 @@ export default function WeaponViewer({
   return (
     <>
       <div>
-        <h4>{name}</h4>
+        <p>{name}</p>
         <p>
           {currentMinis}/{maxMinis}
         </p>
         <Row>
-          <Col>
+          <ButtonGroup>
             <Button
               className="btn-half"
               disabled={freeMinis === 0}
               onClick={() => handleMaxMinis()}
             >
-              All Available
+              All
             </Button>
-          </Col>
-          <Col>
             <Button
               className="btn-half"
               disabled={freeMinis === 0}
@@ -87,8 +85,6 @@ export default function WeaponViewer({
             >
               +
             </Button>
-          </Col>
-          <Col>
             <Button
               className="btn-half"
               disabled={currentMinis === 0}
@@ -96,8 +92,6 @@ export default function WeaponViewer({
             >
               -
             </Button>
-          </Col>
-          <Col>
             <Button
               className="btn-half"
               disabled={currentMinis === 0}
@@ -105,7 +99,7 @@ export default function WeaponViewer({
             >
               Min
             </Button>
-          </Col>
+          </ButtonGroup>{" "}
         </Row>
         {attackPool && displayAttackPool(attackPool)}
       </div>

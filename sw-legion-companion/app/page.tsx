@@ -9,14 +9,23 @@ import { Personnel } from "./personnel";
 import { RebelTroopers } from "./units/rebel_troopers";
 import { z6Trooper } from "./heavy_weapons/z6_trooper";
 import { rebelTrooper } from "./personnel/rebel_trooper";
+import { Army } from "./army";
+import { Row } from "react-bootstrap";
+import { RebelVeterans } from "./units/rebel_veterans";
+import { cm_0_93_trooper } from "./heavy_weapons/cm-0-93_trooper";
 
 export default function Home() {
-  const rebelTroopers = new RebelTroopers(z6Trooper, rebelTrooper);
+  const army: Army = new Army([
+    new RebelTroopers(z6Trooper, rebelTrooper),
+    new RebelVeterans(cm_0_93_trooper, rebelTrooper),
+  ]);
   return (
     <>
-      <div>
-        <UnitViewer unit={rebelTroopers}></UnitViewer>
-      </div>
+      <Row>
+        {army.getUnits().map((unit) => (
+          <UnitViewer unit={unit}></UnitViewer>
+        ))}
+      </Row>
     </>
   );
 }

@@ -86,95 +86,93 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   }, [heavyWeaponDefeated]);
 
   return (
-    <Container>
-      <div>
-        <Row sm="6">
-          <Col>
-            <h3>{name}</h3>
+    <Col className="border-3" sm={5}>
+      <Row>
+        <Col sm={2}>
+          <h5>{name}</h5>
+        </Col>
+
+        <Col sm={3}>
+          <p>
+            Regular: {currentMinis}/{numberOfMinis}
+          </p>
+          <Row>
+            <Col sm={6}>
+              <Button
+                className="btn-half"
+                disabled={hasMaxMinis}
+                onClick={() => {
+                  handleIncrementMinis();
+                }}
+              >
+                +
+              </Button>
+            </Col>
+
+            <Col sm={6}>
+              <Button
+                className="btn-half"
+                disabled={
+                  unitDefeated ||
+                  (currentMinis === 1 && hasHeavyWeapon && !heavyWeaponDefeated)
+                }
+                onClick={() => handleDecrementMinis()}
+              >
+                -
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+        {hasHeavyWeapon ? (
+          <Col sm={3}>
+            <p>Heavy: {heavyWeaponDefeated ? 0 : 1}/1</p>
+            <Row>
+              <Col>
+                <Button
+                  className="btn-half"
+                  disabled={!heavyWeaponDefeated || unitDefeated}
+                  onClick={() => {
+                    setHeavyWeaponDefeated(false);
+                  }}
+                >
+                  +
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  className="btn-half"
+                  disabled={heavyWeaponDefeated}
+                  onClick={() => setHeavyWeaponDefeated(true)}
+                >
+                  -
+                </Button>
+              </Col>
+            </Row>
           </Col>
-          <Col>
-            <div>
-              <p>
-                Regular Minis: {currentMinis}/{numberOfMinis}
-              </p>
-              <Row>
-                <Col>
-                  <Button
-                    className="btn-half"
-                    disabled={hasMaxMinis}
-                    onClick={() => {
-                      handleIncrementMinis();
-                    }}
-                  >
-                    +
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    className="btn-half"
-                    disabled={
-                      unitDefeated ||
-                      (currentMinis === 1 && !heavyWeaponDefeated)
-                    }
-                    onClick={() => handleDecrementMinis()}
-                  >
-                    -
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-            {hasHeavyWeapon ? (
-              <div>
-                Heavy Weapon Minis: {heavyWeaponDefeated ? 0 : 1}/1
-                <Row>
-                  <Col>
-                    <Button
-                      className="btn-half"
-                      disabled={!heavyWeaponDefeated || unitDefeated}
-                      onClick={() => {
-                        setHeavyWeaponDefeated(false);
-                      }}
-                    >
-                      +
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button
-                      className="btn-half"
-                      disabled={heavyWeaponDefeated}
-                      onClick={() => setHeavyWeaponDefeated(true)}
-                    >
-                      -
-                    </Button>
-                  </Col>
-                </Row>
-              </div>
-            ) : null}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ModifierViewer modifiers={unit.getModifiers()}></ModifierViewer>
-          </Col>
-          <Col>
-            <p>Wounds: {woundsPerMini}</p>
-            <p>Courage: {courage}</p>
-          </Col>
-        </Row>
-        {weapons && currentMinis != undefined && (
-          <WeaponOverview
-            weapons={weapons}
-            heavyWeapon={heavyWeapon}
-            heavyWeaponDefeated={heavyWeaponDefeated}
-            maxMinis={
-              heavyWeapon && !heavyWeaponDefeated
-                ? currentMinis + 1
-                : currentMinis
-            }
-            unitDefeated={unitDefeated}
-          ></WeaponOverview>
-        )}
-      </div>
-    </Container>
+        ) : null}
+      </Row>
+      <Row>
+        <Col sm={8}>
+          <ModifierViewer modifiers={unit.getModifiers()}></ModifierViewer>
+        </Col>
+        <Col sm={4}>
+          <p>Wounds: {woundsPerMini}</p>
+          <p>Courage: {courage}</p>
+        </Col>
+      </Row>
+      {weapons && currentMinis != undefined && (
+        <WeaponOverview
+          weapons={weapons}
+          heavyWeapon={heavyWeapon}
+          heavyWeaponDefeated={heavyWeaponDefeated}
+          maxMinis={
+            heavyWeapon && !heavyWeaponDefeated
+              ? currentMinis + 1
+              : currentMinis
+          }
+          unitDefeated={unitDefeated}
+        ></WeaponOverview>
+      )}
+    </Col>
   );
 }

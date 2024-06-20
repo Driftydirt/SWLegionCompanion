@@ -6,7 +6,7 @@ import {
   generateAttackPool,
 } from "./helpers";
 import { Weapon } from "./weapon";
-import { Button, ListGroup } from "react-bootstrap";
+import { Button, Col, ListGroup, Row } from "react-bootstrap";
 import WeaponViewer from "./weapon_viewer";
 import { HeavyWeapon } from "./heavy_weapon";
 import HeavyWeaponViewer from "./heavy_weapon_viewer";
@@ -29,6 +29,7 @@ export default function WeaponOverview({
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>();
   const [minisPerWeapon, setMinisPerWeapon] = useState<MinisPerWeapon>();
+  const [weaponSelected, setWeaponSelected] = useState<boolean>();
   let allocatedMinis = 0;
   minisPerWeapon &&
     minisPerWeapon.forEach(
@@ -43,6 +44,7 @@ export default function WeaponOverview({
       (minis) => (allocatedMinis = allocatedMinis + minis)
     );
     setMinisPerWeapon(minisPerWeapon);
+    setWeaponSelected(allocatedMinis > 0);
     setFreeMinis(maxMinis - allocatedMinis);
   };
 
@@ -53,12 +55,20 @@ export default function WeaponOverview({
     setHasAttackPool(attackPool != undefined);
   }, [attackPool]);
 
+  useEffect(() => {
+    let allocatedMinis = 0;
+    minisPerWeapon &&
+      minisPerWeapon.forEach(
+        (minis) => (allocatedMinis = allocatedMinis + minis)
+      );
+    if (maxMinis - allocatedMinis <= 0) setFreeMinis(0);
+    else setFreeMinis(maxMinis - allocatedMinis);
+  }, [maxMinis]);
   return (
     <>
-      <h2>Weapons:</h2>
-      <ListGroup>
+      <Row>
         {weapons.map((weapon) => (
-          <ListGroup.Item>
+          <Col>
             <WeaponViewer
               weapon={weapon}
               maxMinis={maxMinis}
@@ -66,10 +76,11 @@ export default function WeaponOverview({
               freeMinis={freeMinis}
               handleChangingMinisPerWeapon={handleChangingMinisPerWeapon}
             ></WeaponViewer>
-          </ListGroup.Item>
+          </Col>
         ))}
         {heavyWeapon ? (
-          <ListGroup.Item>
+          <Col>
+            {" "}
             <HeavyWeaponViewer
               weapon={heavyWeapon}
               initCurrentMinis={
@@ -79,10 +90,10 @@ export default function WeaponOverview({
               heavyWeaponDefeated={heavyWeaponDefeated}
               handleChangingMinisPerWeapon={handleChangingMinisPerWeapon}
             ></HeavyWeaponViewer>
-          </ListGroup.Item>
+          </Col>
         ) : null}
-      </ListGroup>
-      {!unitDefeated && freeMinis != maxMinis ? (
+      </Row>
+      {!unitDefeated && weaponSelected ? (
         <div>
           <Button
             onClick={() => {

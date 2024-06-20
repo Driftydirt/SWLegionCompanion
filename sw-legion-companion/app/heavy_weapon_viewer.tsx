@@ -59,7 +59,7 @@ export default function HeavyWeaponViewer({
   return (
     <>
       <div>
-        <h4>{name}</h4>
+        <p>{name}</p>
         <p>
           {currentMinis}/{heavyWeaponDefeated ? 0 : 1}
         </p>

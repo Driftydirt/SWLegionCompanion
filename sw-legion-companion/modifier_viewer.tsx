@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
-import { Col, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Modifier } from "./app/modifier";
 
 type ModifierViewerProps = {
@@ -21,7 +21,7 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
 
   return (
     <div>
-      <Col sm={2}>
+      <Row>
         {hasModifiers
           ? modifiers &&
             modifiers.map((e) => (
@@ -36,7 +36,7 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
               </>
             ))
           : null}
-      </Col>
+      </Row>
     </div>
   );
 }
