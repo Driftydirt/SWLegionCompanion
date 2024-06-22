@@ -29,6 +29,10 @@ export default function UpgradeCardViewer({ card }: UpgradeCardViewerProps) {
     setIsExhaustible(card.isExhaustable());
   }, [card]);
 
+  useEffect(() => {
+    if (exhausted != undefined) card.setExhausted(exhausted);
+  }, [exhausted]);
+
   return (
     <div className="mx-1">
       <Row

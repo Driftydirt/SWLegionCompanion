@@ -2,7 +2,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { useEffect, useState } from "react";
 import { AttackPool, displayAttackPool } from "./helpers";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import { Weapon } from "../weapon";
 
 type HeavyWeaponViewerProps = {
@@ -58,13 +58,23 @@ export default function HeavyWeaponViewer({
 
   return (
     <>
-      <div>
-        <p>{name}</p>
-        <p>
-          {currentMinis}/{heavyWeaponDefeated ? 0 : 1}
-        </p>
+      <Col>
         <Row>
           <Col>
+            <p>{name}</p>
+          </Col>
+          <Col>
+            <p>Range: </p>
+            <p>
+              {minRange}-{maxRange}
+            </p>
+          </Col>
+          <p>
+            {currentMinis}/{heavyWeaponDefeated ? 0 : 1}
+          </p>
+        </Row>
+        <Row>
+          <ButtonGroup>
             <Button
               className="btn-half"
               disabled={
@@ -76,8 +86,6 @@ export default function HeavyWeaponViewer({
             >
               +
             </Button>
-          </Col>
-          <Col>
             <Button
               className="btn-half"
               disabled={currentMinis === 0}
@@ -85,10 +93,10 @@ export default function HeavyWeaponViewer({
             >
               -
             </Button>
-          </Col>
+          </ButtonGroup>
         </Row>
         {attackPool && displayAttackPool(attackPool)}
-      </div>
+      </Col>
     </>
   );
 }

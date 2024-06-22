@@ -1,5 +1,10 @@
-import { LukeCommander } from "./units/luke_commander";
-import { RebelTroopers } from "./units/rebel_troopers";
-import { RebelVeterans } from "./units/rebel_veterans";
+import { UnitForce } from "./unit_force";
+import { UnitHeavyWeapon } from "./unit_heavy_weapon";
+import { UnitPersonnel } from "./unit_personnel";
+import { UnitPersonnelHeavyWeapon } from "./unit_personnel_heavy_weapon";
 
-export type Unit = RebelTroopers | RebelVeterans | LukeCommander;
+export type Unit =
+  | UnitForce
+  | UnitHeavyWeapon
+  | UnitPersonnel
+  | UnitPersonnelHeavyWeapon;

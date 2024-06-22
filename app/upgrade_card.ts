@@ -42,4 +42,8 @@ export class UpgradeCard {
   public getHasModifiers(): boolean {
     return this.hasModifiers;
   }
+
+  public setExhausted(value: boolean) {
+    this.exhausted = value;
+  }
 }

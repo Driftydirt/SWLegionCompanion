@@ -34,6 +34,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     useState<boolean>(false);
   const [hasHeavyWeapon, setHasHeavyWeapon] = useState<boolean>();
   const [heavyWeapon, setHeavyWeapon] = useState<HeavyWeapon>();
+  const [heavyWeaponLeader, setHeavyWeaponLeader] = useState<boolean>();
 
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>(false);
@@ -72,9 +73,11 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setSurgeToCrit(unit.getSurgeToCrit());
     setSurgeToDefend(unit.getSurgeToDefend());
     if ("heavyWeapon" in unit) {
+      const heavyWep = unit.getHeavyWeapon();
       setHeavyWeapon(unit.getHeavyWeapon());
       setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
       setHeavyWeaponDefeated(unit.getHeavyWeaponDefeated());
+      if (heavyWep) setHeavyWeaponLeader(heavyWep.isLeader());
     }
 
     setHasUpgradesCards(unit.getHasUpgradeCards());
@@ -109,13 +112,15 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   }, [heavyWeaponDefeated]);
 
   return (
-    <>
+    <Row>
       <Col
-        className={`border-3 ${unitDefeated ? "defeated" : null}`}
-        md={8}
-        lg={7}
-        xl={6}
-        xxl={5}
+        className={`border-3 ${
+          unitDefeated && heavyWeaponDefeated ? "defeated" : null
+        }`}
+        md={10}
+        lg={9}
+        xl={8}
+        xxl={7}
       >
         <Row>
           <Col sm={2}>
@@ -147,7 +152,8 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                     unitDefeated ||
                     (currentMinis === 1 &&
                       hasHeavyWeapon &&
-                      !heavyWeaponDefeated)
+                      !heavyWeaponDefeated &&
+                      !heavyWeaponLeader)
                   }
                   onClick={() => handleDecrementMinis()}
                 >
@@ -159,11 +165,17 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
           {hasHeavyWeapon ? (
             <Col sm={3}>
               <p>Heavy: {heavyWeaponDefeated ? 0 : 1}/1</p>
+              {heavyWeapon && heavyWeapon.getHealth() > 1 ? (
+                <p>Wounds: {heavyWeapon?.getHealth()}</p>
+              ) : null}
               <Row>
                 <Col>
                   <Button
                     className="btn-half"
-                    disabled={!heavyWeaponDefeated || unitDefeated}
+                    disabled={
+                      !heavyWeaponDefeated ||
+                      (unitDefeated && !heavyWeaponLeader)
+                    }
                     onClick={() => {
                       setHeavyWeaponDefeated(false);
                     }}
@@ -174,7 +186,12 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                 <Col>
                   <Button
                     className="btn-half"
-                    disabled={heavyWeaponDefeated}
+                    disabled={
+                      heavyWeaponDefeated ||
+                      (currentMinis != undefined &&
+                        heavyWeaponLeader &&
+                        currentMinis > 0)
+                    }
                     onClick={() => setHeavyWeaponDefeated(true)}
                   >
                     -
@@ -230,6 +247,6 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
           ))}
         </Col>
       ) : null}
-    </>
+    </Row>
   );
 }

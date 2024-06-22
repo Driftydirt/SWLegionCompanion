@@ -26,6 +26,8 @@ export default function WeaponViewer({
   const [maxRange, setMaxRange] = useState<number>();
   const [modifiers, setModifiers] = useState<number>();
   const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
+  const [exhausted, setExhausted] = useState<boolean>();
+  const [isExhaustible, setIsExhaustible] = useState<boolean>();
 
   const handleMaxMinis = () => {
     if (currentMinis != undefined) setCurrentMinis(currentMinis + freeMinis);
@@ -46,7 +48,15 @@ export default function WeaponViewer({
     setAttackPool(weapon.getAttackPool());
     setMinRange(weapon.getMinRange());
     setMaxRange(weapon.getMaxRange());
+    setExhausted(weapon.getExhausted());
+    setIsExhaustible(weapon.isExhaustable());
   }, [weapon]);
+
+  useEffect(() => {
+    if (exhausted === undefined) return;
+    setCurrentMinis(0);
+    weapon.setExhausted(exhausted);
+  }, [exhausted]);
 
   useEffect(() => {
     if (currentMinis === undefined) setCurrentMinis(0);
@@ -64,8 +74,18 @@ export default function WeaponViewer({
 
   return (
     <>
-      <div>
-        <p>{name}</p>
+      <Col className={`${exhausted === true ? "exhausted" : null}`}>
+        <Row>
+          <Col>
+            <p>{name}</p>
+          </Col>
+          <Col>
+            <p>Range: </p>
+            <p>
+              {minRange}-{maxRange}
+            </p>
+          </Col>
+        </Row>
         <p>
           {currentMinis}/{maxMinis}
         </p>
@@ -73,28 +93,28 @@ export default function WeaponViewer({
           <ButtonGroup>
             <Button
               className="btn-half"
-              disabled={freeMinis === 0}
+              disabled={freeMinis === 0 || exhausted}
               onClick={() => handleMaxMinis()}
             >
               All
             </Button>
             <Button
               className="btn-half"
-              disabled={freeMinis === 0}
+              disabled={freeMinis === 0 || exhausted}
               onClick={() => handleIncrementMinis()}
             >
               +
             </Button>
             <Button
               className="btn-half"
-              disabled={currentMinis === 0}
+              disabled={currentMinis === 0 || exhausted}
               onClick={() => handleDecrementMinis()}
             >
               -
             </Button>
             <Button
               className="btn-half"
-              disabled={currentMinis === 0}
+              disabled={currentMinis === 0 || exhausted}
               onClick={() => handleMinimumMinis()}
             >
               Min
@@ -102,7 +122,13 @@ export default function WeaponViewer({
           </ButtonGroup>{" "}
         </Row>
         {attackPool && displayAttackPool(attackPool)}
-      </div>
+        {isExhaustible && !exhausted ? (
+          <Button onClick={() => setExhausted(true)}>Exhaust</Button>
+        ) : null}
+        {isExhaustible && exhausted ? (
+          <Button onClick={() => setExhausted(false)}>Recover</Button>
+        ) : null}
+      </Col>
     </>
   );
 }
