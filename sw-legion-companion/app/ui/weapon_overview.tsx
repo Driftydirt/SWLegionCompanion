@@ -68,7 +68,7 @@ export default function WeaponOverview({
     <>
       <Row>
         {weapons.map((weapon) => (
-          <Col>
+          <Col key={weapon.getName()}>
             <WeaponViewer
               weapon={weapon}
               maxMinis={maxMinis}

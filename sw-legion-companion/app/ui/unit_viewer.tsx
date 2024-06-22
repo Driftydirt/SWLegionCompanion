@@ -197,7 +197,10 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
         <Col sm={3} md={3} lg={2} xl={2} xxl={1}>
           <h5>Upgrade Cards:</h5>
           {upgradeCards.map((card) => (
-            <UpgradeCardViewer card={card}></UpgradeCardViewer>
+            <UpgradeCardViewer
+              key={card.getName()}
+              card={card}
+            ></UpgradeCardViewer>
           ))}
         </Col>
       ) : null}

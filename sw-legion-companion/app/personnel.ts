@@ -1,3 +1,5 @@
+import { Modifier } from "./modifier";
+
 export class Personnel {
   private name: string;
   private health: number;

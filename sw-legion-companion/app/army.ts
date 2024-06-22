@@ -2,10 +2,10 @@ import { Unit } from "./interfaces";
 
 export class Army {
   private units: Unit[];
-  private uuid: string;
+  private uuid: number;
   constructor(units: Unit[] = []) {
     this.units = units;
-    this.uuid = self.crypto.randomUUID();
+    this.uuid = Math.random();
   }
 
   public getUuid() {

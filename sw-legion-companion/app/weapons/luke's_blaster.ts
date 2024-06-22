@@ -1,5 +1,3 @@
-import { Modifier } from "../modifier";
-import { impact } from "../modifiers/Impact";
 import { pierce } from "../modifiers/pierce";
 import { Weapon } from "../weapon";
 

@@ -1,5 +1,5 @@
-import { AttackPool } from "./helpers";
 import { Modifier } from "./modifier";
+import { AttackPool } from "./ui/helpers";
 
 export class Weapon {
   private name: string;
