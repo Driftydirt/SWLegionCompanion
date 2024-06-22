@@ -1,9 +1,10 @@
 import { HeavyWeapon } from "./heavy_weapon";
-import { AttackPool } from "./helpers";
 import { Unit } from "./unit";
+import { UnitUpgradeCard } from "./unit_upgrade_card";
+import { UpgradeCard } from "./upgrade_card";
 import { Weapon } from "./weapon";
 
-export class UnitHeavyWeapon extends Unit {
+export class UnitHeavyWeapon extends UnitUpgradeCard {
   protected heavyWeapon: HeavyWeapon | undefined;
   protected heavyWeaponDefeated: boolean;
   constructor(
@@ -12,9 +13,10 @@ export class UnitHeavyWeapon extends Unit {
     woundsPerMini: number,
     courage: number,
     weapon: Weapon[],
-    heavyWeapon: HeavyWeapon | undefined
+    heavyWeapon: HeavyWeapon | undefined,
+    upgradeCards?: UpgradeCard[]
   ) {
-    super(name, numberOfMinis, woundsPerMini, courage, weapon);
+    super(name, numberOfMinis, woundsPerMini, courage, weapon, upgradeCards);
     this.heavyWeapon = heavyWeapon;
     this.heavyWeaponDefeated = false;
   }

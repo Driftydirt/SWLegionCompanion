@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { Modifier } from "./modifier";
+import { Modifier } from "../modifier";
 
 type ModifierViewerProps = {
   modifiers: Modifier[] | undefined;

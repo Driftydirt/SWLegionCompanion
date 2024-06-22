@@ -1,4 +1,4 @@
-import { Weapon } from "./weapon";
+import { Weapon } from "../weapon";
 
 export function displayAttackPool(attackPool: AttackPool) {
   const hasWhiteDice = attackPool.whiteDice != 0;

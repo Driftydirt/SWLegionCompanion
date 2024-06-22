@@ -5,11 +5,11 @@ import {
   displayAttackPool,
   generateAttackPool,
 } from "./helpers";
-import { Weapon } from "./weapon";
-import { Button, Col, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import WeaponViewer from "./weapon_viewer";
-import { HeavyWeapon } from "./heavy_weapon";
 import HeavyWeaponViewer from "./heavy_weapon_viewer";
+import { HeavyWeapon } from "../heavy_weapon";
+import { Weapon } from "../weapon";
 
 type WeaponOverviewProps = {
   weapons: Weapon[];

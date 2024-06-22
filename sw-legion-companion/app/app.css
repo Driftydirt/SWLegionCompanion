@@ -4,3 +4,13 @@
 .modifiers {
   display: inline-block;
 }
+.center-text {
+  text-align: center;
+}
+.exhausted {
+  background-color: grey;
+}
+
+.defeated {
+  background-color: rgba(255, 0, 0, 0.2);
+}

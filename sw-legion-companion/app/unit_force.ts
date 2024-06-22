@@ -1,11 +1,11 @@
 import { ForceUpgrade } from "./force_upgrades";
 import { HeavyWeapon } from "./heavy_weapon";
-import { AttackPool } from "./helpers";
 import { Unit } from "./unit";
+import { UnitUpgradeCard } from "./unit_upgrade_card";
 import { Weapon } from "./weapon";
 
-export class UnitForce extends Unit {
-  protected forceUpgrades: ForceUpgrade[];
+export class UnitForce extends UnitUpgradeCard {
+  // figure out how to store the upgrades 1) separate array for each, 2) joined array
 
   constructor(
     name: string,
@@ -15,10 +15,6 @@ export class UnitForce extends Unit {
     weapon: Weapon[],
     forceUpgrades: ForceUpgrade[]
   ) {
-    super(name, numberOfMinis, woundsPerMini, courage, weapon);
-    this.forceUpgrades = forceUpgrades;
-  }
-  public getForceUpgrades() {
-    return this.forceUpgrades;
+    super(name, numberOfMinis, woundsPerMini, courage, weapon, forceUpgrades);
   }
 }
