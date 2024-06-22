@@ -32,7 +32,7 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
                   overlay={<Tooltip>{e.getDescription()}</Tooltip>}
                 >
                   {e.getAmount() ? (
-                    <p className="modifiers">
+                    <p key={e.getName()} className="modifiers">
                       {e.getName()} {e.getAmount()}
                     </p>
                   ) : (

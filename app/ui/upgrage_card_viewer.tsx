@@ -6,15 +6,13 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Modifier } from "../modifier";
 import { UpgradeCard } from "../upgrade_card";
+import ModifierViewer from "./modifier_viewer";
 
 type UpgradeCardViewerProps = {
   card: UpgradeCard;
 };
 
 export default function UpgradeCardViewer({ card }: UpgradeCardViewerProps) {
-  const [hasModifiers, setHasModifiers] = useState<boolean>(
-    card.getHasModifiers()
-  );
   const [modifiers, setModifiers] = useState<Modifier[]>();
   const [name, setName] = useState<string>(card.getName());
   const [description, setDescription] = useState<string>(card.getDescription());
@@ -45,26 +43,11 @@ export default function UpgradeCardViewer({ card }: UpgradeCardViewerProps) {
         >
           <p className="text-center">{name}</p>
         </OverlayTrigger>
-        {hasModifiers
-          ? modifiers &&
-            modifiers.map((e) => (
-              <>
-                <OverlayTrigger
-                  placement="right"
-                  delay={{ show: 100, hide: 400 }}
-                  overlay={<Tooltip>{e.getDescription()}</Tooltip>}
-                >
-                  {e.getAmount() ? (
-                    <p className="modifiers">
-                      {e.getName()} {e.getAmount()}
-                    </p>
-                  ) : (
-                    <p className="modifiers">{e.getName()}</p>
-                  )}
-                </OverlayTrigger>
-              </>
-            ))
-          : null}
+        {modifiers ? (
+          <div className="center-text">
+            <ModifierViewer modifiers={modifiers}></ModifierViewer>
+          </div>
+        ) : null}
         {isExhaustible && !exhausted ? (
           <Button onClick={() => setExhausted(true)}>Exhaust</Button>
         ) : null}

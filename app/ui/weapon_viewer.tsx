@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { AttackPool, displayAttackPool } from "./helpers";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import { Weapon } from "../weapon";
+import { Modifier } from "../modifier";
+import ModifierViewer from "./modifier_viewer";
 
 type WeaponViewerProps = {
   weapon: Weapon;
@@ -24,7 +26,7 @@ export default function WeaponViewer({
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [minRange, setMinRange] = useState<number>();
   const [maxRange, setMaxRange] = useState<number>();
-  const [modifiers, setModifiers] = useState<number>();
+  const [modifiers, setModifiers] = useState<Modifier[]>();
   const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
   const [exhausted, setExhausted] = useState<boolean>();
   const [isExhaustible, setIsExhaustible] = useState<boolean>();
@@ -50,6 +52,7 @@ export default function WeaponViewer({
     setMaxRange(weapon.getMaxRange());
     setExhausted(weapon.getExhausted());
     setIsExhaustible(weapon.isExhaustable());
+    setModifiers(weapon.getModifiers());
   }, [weapon]);
 
   useEffect(() => {
@@ -122,6 +125,11 @@ export default function WeaponViewer({
           </ButtonGroup>{" "}
         </Row>
         {attackPool && displayAttackPool(attackPool)}
+        {modifiers ? (
+          <div className="center-text">
+            <ModifierViewer modifiers={modifiers}></ModifierViewer>
+          </div>
+        ) : null}
         {isExhaustible && !exhausted ? (
           <Button onClick={() => setExhausted(true)}>Exhaust</Button>
         ) : null}
