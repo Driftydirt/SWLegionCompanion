@@ -13,11 +13,15 @@ import { Army } from "./army";
 import { Row } from "react-bootstrap";
 import { RebelVeterans } from "./units/rebel_veterans";
 import { cm_0_93_trooper } from "./heavy_weapons/cm-0-93_trooper";
+import { LukeCommander } from "./units/luke_commander";
+import { forcePush } from "./force_upgrades/force_push";
+import { forceReflexes } from "./force_upgrades/force_reflexes";
 
 export default function Home() {
   const army: Army = new Army([
     new RebelTroopers(z6Trooper, rebelTrooper),
     new RebelVeterans(cm_0_93_trooper, rebelTrooper),
+    new LukeCommander([forcePush, forceReflexes]),
   ]);
   return (
     <>

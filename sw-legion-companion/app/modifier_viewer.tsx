@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { Modifier } from "./app/modifier";
+import { Modifier } from "./modifier";
 
 type ModifierViewerProps = {
   modifiers: Modifier[] | undefined;
@@ -31,7 +31,13 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
                   delay={{ show: 100, hide: 400 }}
                   overlay={<Tooltip>{e.getDescription()}</Tooltip>}
                 >
-                  <p className="modifiers">{e.getName()}</p>
+                  {e.getAmount() ? (
+                    <p className="modifiers">
+                      {e.getName()} {e.getAmount()}
+                    </p>
+                  ) : (
+                    <p className="modifiers">{e.getName()}</p>
+                  )}
                 </OverlayTrigger>
               </>
             ))

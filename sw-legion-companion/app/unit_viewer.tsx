@@ -14,9 +14,12 @@ import {
   generateAttackPool,
 } from "./helpers";
 import { Unit } from "./interfaces";
-import ModifierViewer from "@/modifier_viewer";
+
 import WeaponOverview from "./weapon_overview";
 import { HeavyWeapon } from "./heavy_weapon";
+import ModifierViewer from "./modifier_viewer";
+import { UnitHeavyWeapon } from "./unit_heavy_weapon";
+import { UnitPersonnelHeavyWeapon } from "./unit_personnel_heavy_weapon";
 
 type UnitViewerProps = {
   unit: Unit;
@@ -38,7 +41,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
 
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>(false);
-
+  const [hasForceUpgrades, setHasForceUpgrades] = useState<boolean>();
   const handleIncrementMinis = () => {
     setCurrentMinis((prev) => {
       if (currentMinis && numberOfMinis && currentMinis + 1 > numberOfMinis)
@@ -58,9 +61,15 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setWoundsPerMini(unit.getWoundsPerMini());
     setCourage(unit.getCourage());
     setWeapons(unit.getWeapon());
-    setHeavyWeapon(unit.getHeavyWeapon());
-    setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
-    setHeavyWeaponDefeated(unit.getHeavyWeaponDefeated());
+    if ("heavyWeapon" in unit) {
+      setHeavyWeapon(unit.getHeavyWeapon());
+      setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
+      setHeavyWeaponDefeated(unit.getHeavyWeaponDefeated());
+    }
+
+    if ("forceUpgrades" in unit) {
+      setHasForceUpgrades(unit.getForceUpgrades() != undefined);
+    }
   }, [unit]);
 
   useEffect(() => {
@@ -82,7 +91,12 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   }, [unitDefeated]);
 
   useEffect(() => {
-    unit.setHeavyWeaponDefeated(heavyWeaponDefeated);
+    if (
+      unit instanceof UnitHeavyWeapon &&
+      unit instanceof UnitPersonnelHeavyWeapon
+    ) {
+      unit.setHeavyWeaponDefeated(heavyWeaponDefeated);
+    }
   }, [heavyWeaponDefeated]);
 
   return (
@@ -173,6 +187,15 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
           unitDefeated={unitDefeated}
         ></WeaponOverview>
       )}
+      <Row>
+        {hasForceUpgrades && "forceUpgrades" in unit
+          ? unit.getForceUpgrades().map((force) => (
+              <>
+                <p>{force.getName()}</p>
+              </>
+            ))
+          : null}
+      </Row>
     </Col>
   );
 }
