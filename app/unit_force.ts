@@ -2,6 +2,7 @@ import { ForceUpgrade } from "./force_upgrades";
 import { HeavyWeapon } from "./heavy_weapon";
 import { Unit } from "./unit";
 import { UnitUpgradeCard } from "./unit_upgrade_card";
+import { UpgradeCard } from "./upgrade_card";
 import { Weapon } from "./weapon";
 
 export class UnitForce extends UnitUpgradeCard {
@@ -13,8 +14,27 @@ export class UnitForce extends UnitUpgradeCard {
     woundsPerMini: number,
     courage: number,
     weapon: Weapon[],
-    forceUpgrades: ForceUpgrade[]
+    movementSpeed: number,
+    defenceDie: string,
+    unitType: string,
+    surgeToDefend: boolean = false,
+    surgeToHit: boolean = false,
+    surgeToCrit: boolean = false,
+    upgradeCards?: UpgradeCard[]
   ) {
-    super(name, numberOfMinis, woundsPerMini, courage, weapon, forceUpgrades);
+    super(
+      name,
+      numberOfMinis,
+      woundsPerMini,
+      courage,
+      weapon,
+      movementSpeed,
+      defenceDie,
+      unitType,
+      surgeToDefend,
+      surgeToHit,
+      surgeToCrit,
+      upgradeCards
+    );
   }
 }

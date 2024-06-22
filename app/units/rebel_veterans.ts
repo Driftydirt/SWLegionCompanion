@@ -10,7 +10,20 @@ export class RebelVeterans extends UnitPersonnelHeavyWeapon {
     heavyWeapon: HeavyWeapon | undefined,
     personnel: Personnel | undefined
   ) {
-    super("Rebel Veterans", 4, 1, 1, [unarmed, a280], heavyWeapon, personnel);
+    super(
+      "Rebel Veterans",
+      4,
+      1,
+      1,
+      [unarmed, a280],
+      heavyWeapon,
+      personnel,
+      2,
+      "White",
+      "Trooper",
+      true,
+      true
+    );
 
     this.modifiers = [
       new Modifier(

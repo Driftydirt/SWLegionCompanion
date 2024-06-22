@@ -39,6 +39,13 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   const [hasAttackPool, setHasAttackPool] = useState<boolean>(false);
   const [hasUpgradeCards, setHasUpgradesCards] = useState<boolean>();
   const [upgradeCards, setUpgradeCards] = useState<UpgradeCard[]>();
+  const [unitType, setUnitType] = useState<string>();
+  const [defenceDie, setDefenceDie] = useState<string>();
+  const [movementSpeed, setMovementSpeed] = useState<number>();
+  const [surgeToHit, setSurgeToHit] = useState<boolean>();
+  const [surgeToDefend, setSurgeToDefend] = useState<boolean>();
+  const [surgeToCrit, setSurgeToCrit] = useState<boolean>();
+
   const handleIncrementMinis = () => {
     setCurrentMinis((prev) => {
       if (currentMinis && numberOfMinis && currentMinis + 1 > numberOfMinis)
@@ -58,6 +65,12 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
     setWoundsPerMini(unit.getWoundsPerMini());
     setCourage(unit.getCourage());
     setWeapons(unit.getWeapon());
+    setUnitType(unit.getUnitType());
+    setDefenceDie(unit.getDefenceDie());
+    setMovementSpeed(unit.getMovementSpeed());
+    setSurgeToHit(unit.getSurgeToHit());
+    setSurgeToCrit(unit.getSurgeToCrit());
+    setSurgeToDefend(unit.getSurgeToDefend());
     if ("heavyWeapon" in unit) {
       setHeavyWeapon(unit.getHeavyWeapon());
       setHasHeavyWeapon(unit.getHeavyWeapon() != undefined);
@@ -107,6 +120,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
         <Row>
           <Col sm={2}>
             <h5>{name}</h5>
+            <p>{unitType}</p>
           </Col>
 
           <Col sm={3}>
@@ -169,14 +183,26 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
               </Row>
             </Col>
           ) : null}
+          <Col className="right-text">
+            <p>Wounds: {woundsPerMini}</p>
+            <p>Courage: {courage}</p>
+          </Col>
         </Row>
         <Row>
           <Col sm={8}>
             <ModifierViewer modifiers={unit.getModifiers()}></ModifierViewer>
           </Col>
-          <Col sm={4}>
-            <p>Wounds: {woundsPerMini}</p>
-            <p>Courage: {courage}</p>
+          <Col className="right-text">
+            <Row>
+              <p>Defence Die: {defenceDie}</p>
+              {surgeToCrit || surgeToHit ? (
+                <p>Attack Surge: {surgeToCrit ? "Crit" : "Hit"}</p>
+              ) : null}
+              {surgeToDefend ? <p>Defence Surge: Defend</p> : null}
+            </Row>
+            <Row>
+              <p>Movement Speed: {movementSpeed}</p>
+            </Row>
           </Col>
         </Row>
         {weapons && currentMinis != undefined && (

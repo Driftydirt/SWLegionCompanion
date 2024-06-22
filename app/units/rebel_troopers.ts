@@ -11,7 +11,19 @@ export class RebelTroopers extends UnitPersonnelHeavyWeapon {
     heavyWeapon: HeavyWeapon | undefined,
     personnel: Personnel | undefined
   ) {
-    super("Rebel Troopers", 4, 1, 1, [unarmed, a280], heavyWeapon, personnel);
+    super(
+      "Rebel Troopers",
+      4,
+      1,
+      1,
+      [unarmed, a280],
+      heavyWeapon,
+      personnel,
+      2,
+      "White",
+      "Trooper",
+      true
+    );
 
     this.modifiers = [nimble];
   }

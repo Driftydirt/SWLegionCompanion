@@ -14,3 +14,7 @@
 .defeated {
   background-color: rgba(255, 0, 0, 0.2);
 }
+
+.right-text {
+  text-align: right;
+}

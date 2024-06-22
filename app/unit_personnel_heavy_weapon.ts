@@ -18,9 +18,28 @@ export class UnitPersonnelHeavyWeapon extends UnitUpgradeCard {
     weapon: Weapon[],
     heavyWeapon: HeavyWeapon | undefined,
     personnel: Personnel | undefined,
+    movementSpeed: number,
+    defenceDie: string,
+    unitType: string,
+    surgeToDefend: boolean = false,
+    surgeToHit: boolean = false,
+    surgeToCrit: boolean = false,
     upgradeCards?: UpgradeCard[]
   ) {
-    super(name, numberOfMinis, woundsPerMini, courage, weapon, upgradeCards);
+    super(
+      name,
+      numberOfMinis,
+      woundsPerMini,
+      courage,
+      weapon,
+      movementSpeed,
+      defenceDie,
+      unitType,
+      surgeToDefend,
+      surgeToHit,
+      surgeToCrit,
+      upgradeCards
+    );
     this.heavyWeapon = heavyWeapon;
     this.personnel = personnel;
     if (personnel) this.baseMinis = this.baseMinis + 1;
