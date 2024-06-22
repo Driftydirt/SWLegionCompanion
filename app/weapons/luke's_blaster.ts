@@ -1,4 +1,4 @@
-import { pierce } from "../modifiers/pierce";
+import { Pierce } from "../modifiers/pierce";
 import { Weapon } from "../weapon";
 
 export const lukeBlaster = new Weapon(
@@ -8,5 +8,5 @@ export const lukeBlaster = new Weapon(
   2,
   1,
   2,
-  [pierce]
+  [new Pierce(2)]
 );

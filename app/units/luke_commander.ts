@@ -1,10 +1,8 @@
 import { ForceUpgrade } from "../force_upgrades";
-import { forcePush } from "../force_upgrades/force_push";
-import { forceReflexes } from "../force_upgrades/force_reflexes";
-import { charge } from "../modifiers/charge";
-import { deflect } from "../modifiers/deflect";
-import { immunePierce } from "../modifiers/immune_pierce";
-import { jump } from "../modifiers/jump";
+import { Charge } from "../modifiers/charge";
+import { Deflect } from "../modifiers/deflect";
+import { ImmunePierce, immunePierce } from "../modifiers/immune_pierce";
+import { Jump } from "../modifiers/jump";
 import { UnitForce } from "../unit_force";
 import { anakinLightsaber } from "../weapons/anakin's_lightsaber";
 import { lukeBlaster } from "../weapons/luke's_blaster";
@@ -26,6 +24,11 @@ export class LukeCommander extends UnitForce {
       forceUpgrades
     );
 
-    this.modifiers = [jump, charge, deflect, immunePierce];
+    this.modifiers = [
+      new Jump(1),
+      new Charge(),
+      new Deflect(),
+      new ImmunePierce(),
+    ];
   }
 }

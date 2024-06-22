@@ -11,23 +11,25 @@ import { rebelTrooper } from "./personnel/rebel_trooper";
 import { LukeCommander } from "./units/luke_commander";
 import { RebelTroopers } from "./units/rebel_troopers";
 import { RebelVeterans } from "./units/rebel_veterans";
-import UnitViewer from "./ui/unit_viewer";
 import { useState } from "react";
 import { ArmyViewer } from "./ui/army_viewer";
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { RebelOfficer } from "./units/rebel_officer";
+import { vigilance } from "./upgrade_cards/command/vigilance";
+import { portableScanner } from "./upgrade_cards/gear/portable_scanner";
+import { Mark2MediumBlasterTrooper } from "./units/mk2_medium_blaster_trooper";
+import { MandalorianResistance } from "./units/mandalorian_resistance";
+import { beskadDuelist } from "./heavy_weapons/beskad_duelist";
+import { offensivePush } from "./upgrade_cards/training/offensive_push";
+import { hqUplink } from "./upgrade_cards/comms/hq_uplink";
 
 const rebelArmyInit: Army = new Army([
-  new RebelTroopers(z6Trooper, rebelTrooper),
-  new RebelVeterans(cm_0_93_trooper, rebelTrooper),
   new LukeCommander([forcePush, forceReflexes]),
+  new RebelOfficer([vigilance, portableScanner]),
+  new RebelTroopers(z6Trooper, rebelTrooper),
+  new RebelVeterans(undefined, rebelTrooper),
+  new Mark2MediumBlasterTrooper(),
+  new MandalorianResistance(beskadDuelist, [hqUplink, offensivePush]),
+  new MandalorianResistance(beskadDuelist, [hqUplink, offensivePush]),
 ]);
 const empireArmyInit: Army = new Army([
   new RebelTroopers(z6Trooper, rebelTrooper),

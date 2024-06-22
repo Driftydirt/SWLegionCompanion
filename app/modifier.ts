@@ -1,5 +1,5 @@
 export class Modifier {
-  constructor(name: string, description: string, amount = undefined) {
+  constructor(name: string, description: string, amount?: number) {
     this.name = name;
     this.description = description;
     this.amount = amount;
@@ -20,5 +20,9 @@ export class Modifier {
 
   public getDescription(): string {
     return this.description;
+  }
+
+  public setAmount(value: number) {
+    this.amount = value;
   }
 }

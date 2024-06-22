@@ -43,6 +43,9 @@ export class UnitHeavyWeapon extends UnitUpgradeCard {
   public getHeavyWeapon(): HeavyWeapon | undefined {
     return this.heavyWeapon;
   }
+  public getHeavyWeaponDefeated(): boolean {
+    return this.heavyWeaponDefeated;
+  }
   public setHeavyWeaponDefeated(value: boolean) {
     this.heavyWeaponDefeated = value;
   }

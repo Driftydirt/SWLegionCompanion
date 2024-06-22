@@ -1,16 +1,12 @@
 import { HeavyWeapon } from "../heavy_weapon";
-import { Modifier } from "../modifier";
-import { nimble } from "../modifiers/nimble";
+import { Nimble } from "../modifiers/nimble";
 import { Personnel } from "../personnel";
 import { UnitPersonnelHeavyWeapon } from "../unit_personnel_heavy_weapon";
 import { a280 } from "../weapons/a280";
 import { unarmed } from "../weapons/unarmed";
 
 export class RebelTroopers extends UnitPersonnelHeavyWeapon {
-  constructor(
-    heavyWeapon: HeavyWeapon | undefined,
-    personnel: Personnel | undefined
-  ) {
+  constructor(heavyWeapon?: HeavyWeapon, personnel?: Personnel) {
     super(
       "Rebel Troopers",
       4,
@@ -25,6 +21,6 @@ export class RebelTroopers extends UnitPersonnelHeavyWeapon {
       true
     );
 
-    this.modifiers = [nimble];
+    this.modifiers = [new Nimble(1)];
   }
 }
