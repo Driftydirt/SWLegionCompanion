@@ -4,6 +4,8 @@ import { UpgradeCard } from "@/app/upgrade_card";
 export class DuckAndCover extends UpgradeCard {
   constructor() {
     super(
+      undefined,
+
       "Duck And Cover",
       "While defending against a ranged attack, during the Apply Dodge and Cover step, you may gain 1 suppression token.",
       false,

@@ -1,15 +1,49 @@
-import { Unit } from "./interfaces";
+import { ArmyInterface, Unit, UnitInterface } from "./interfaces";
+import { UnitForce } from "./unit_force";
+import { UnitHeavyWeapon } from "./unit_heavy_weapon";
+import { UnitNoExtra } from "./unit_no_extra";
+import { UnitPersonnel } from "./unit_personnel";
+import { UnitPersonnelHeavyWeapon } from "./unit_personnel_heavy_weapon";
+import { UnitUpgradeCard } from "./unit_upgrade_card";
 
 export class Army {
-  private units: Unit[];
-  private uuid: number;
-  constructor(units: Unit[] = []) {
-    this.units = units;
-    this.uuid = Math.random();
+  private units: Unit[] = [];
+  private id: string = "";
+  constructor(units?: Unit[], id?: string, armyInterface?: ArmyInterface) {
+    let interfaceUnits: Unit[] = [];
+    if (armyInterface != undefined) {
+      armyInterface.units.forEach((unit) => {
+        let unitSwitch: Unit;
+        switch (unit.type) {
+          case "Force":
+            unitSwitch = new UnitForce(unit);
+            break;
+          case "HeavyWeapon":
+            unitSwitch = new UnitHeavyWeapon(unit);
+            break;
+          case "Personnel":
+            unitSwitch = new UnitPersonnel(unit);
+            break;
+          case "PersonnelHeavyWeapon":
+            unitSwitch = new UnitPersonnelHeavyWeapon(unit);
+            break;
+          default:
+            unitSwitch = new UnitNoExtra(unit);
+        }
+
+        interfaceUnits.push(unitSwitch);
+      });
+      if (interfaceUnits.length > 0) this.units = interfaceUnits;
+      this.id = armyInterface.id;
+    } else {
+      this.units = units ? units : [];
+
+      this.id = id ? id : "";
+    }
   }
 
-  public getUuid() {
-    return this.uuid;
+  public getId() {
+    return this.id;
   }
 
   public getUnits() {
@@ -18,5 +52,13 @@ export class Army {
 
   public addUnit(unit: Unit) {
     this.units.push(unit);
+  }
+
+  public toInterface(): ArmyInterface {
+    const unitInterfaces: UnitInterface[] = [];
+    this.units.forEach((unit) => {
+      unitInterfaces.push(unit.toInterface());
+    });
+    return { id: this.id, units: unitInterfaces };
   }
 }

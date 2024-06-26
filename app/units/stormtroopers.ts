@@ -9,6 +9,8 @@ import { unarmed } from "../weapons/unarmed";
 export class Stormtroopers extends UnitPersonnelHeavyWeapon {
   constructor(heavyWeapon?: HeavyWeapon, personnel?: Personnel) {
     super(
+      undefined,
+
       "Stormtroopers",
       4,
       1,

@@ -10,6 +10,8 @@ import { vadersLightsaber } from "../weapons/vader's_lightsaber";
 export class VaderCommander extends UnitForce {
   constructor(forceUpgrades: ForceUpgrade[]) {
     super(
+      undefined,
+
       "Darth Vader",
       1,
       8,

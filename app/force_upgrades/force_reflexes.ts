@@ -1,7 +1,13 @@
-import { ForceUpgrade } from "../force_upgrades";
+import { UpgradeCard } from "../upgrade_card";
 
-export class ForceReflexes extends ForceUpgrade {
+export class ForceReflexes extends UpgradeCard {
   constructor() {
-    super("Force Reflexes", "Free Action: Gain 1 Dodge Token", true, undefined);
+    super(
+      undefined,
+      "Force Reflexes",
+      "Free Action: Gain 1 Dodge Token",
+      true,
+      undefined
+    );
   }
 }

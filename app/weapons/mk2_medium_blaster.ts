@@ -4,6 +4,8 @@ import { FixedFront } from "../modifiers/fixed_front";
 import { Weapon } from "../weapon";
 
 export const mark2MediumBlaster = new Weapon(
+  undefined,
+
   "Mark 2 Medium Blaster",
   0,
   4,

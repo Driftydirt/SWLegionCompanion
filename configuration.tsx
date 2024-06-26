@@ -1,6 +1,16 @@
 import { getAnalytics } from "firebase/analytics";
-import { initializeApp } from "firebase/app";
-
+import { Firestore } from "firebase/firestore";
+const {
+  initializeApp,
+  applicationDefault,
+  cert,
+} = require("firebase-admin/app");
+const {
+  getFirestore,
+  Timestamp,
+  FieldValue,
+  Filter,
+} = require("firebase-admin/firestore");
 const firebaseConfig = {
   apiKey: "AIzaSyDaqUD84Xnjv2oRteeFlNP48KDOf4R7cMI",
   authDomain: "star-wars-legion-companion.firebaseapp.com",
@@ -15,3 +25,4 @@ if (typeof window !== "undefined") {
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 }
+export const db: Firestore = getFirestore();

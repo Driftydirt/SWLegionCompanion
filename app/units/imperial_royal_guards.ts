@@ -15,6 +15,8 @@ import { se14_s } from "../weapons/se14_s";
 export class ImperialRoyalGuards extends UnitHeavyWeapon {
   constructor(heavyWeapon?: HeavyWeapon, upgradeCards?: UpgradeCard[]) {
     super(
+      undefined,
+
       "Imperial Royal Guards",
       3,
       2,

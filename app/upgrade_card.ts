@@ -1,3 +1,4 @@
+import { ModifierInterface, UpgradeCardInterface } from "./interfaces";
 import { Modifier } from "./modifier";
 
 export class UpgradeCard {
@@ -9,15 +10,28 @@ export class UpgradeCard {
 
   protected exhausted: boolean | undefined;
   constructor(
-    name: string,
-    description: string,
-    exhaustable: boolean,
-    modifiers: Modifier[] | undefined
+    upgradeCardInterface?: UpgradeCardInterface,
+    name?: string,
+    description?: string,
+    exhaustable?: boolean,
+    modifiers?: Modifier[] | undefined
   ) {
-    this.name = name;
-    this.description = description;
-    this.exhaustable = exhaustable;
-    this.modifiers = modifiers;
+    if (upgradeCardInterface) {
+      const interfacesModifers: Modifier[] = [];
+      upgradeCardInterface.modifiers?.forEach((modifier) =>
+        interfacesModifers.push(new Modifier(modifier))
+      );
+      this.name = upgradeCardInterface.name;
+      this.description = upgradeCardInterface.description;
+      this.exhaustable = upgradeCardInterface.exhaustable;
+      this.modifiers = interfacesModifers;
+    } else {
+      this.name = name ? name : "";
+      this.description = description ? description : "";
+      this.exhaustable = exhaustable ? exhaustable : false;
+      this.modifiers = modifiers ? modifiers : [];
+    }
+
     this.hasModifiers = modifiers != undefined;
     if (this.exhaustable) this.exhausted = false;
   }
@@ -45,5 +59,20 @@ export class UpgradeCard {
 
   public setExhausted(value: boolean) {
     this.exhausted = value;
+  }
+
+  public toInterface(): UpgradeCardInterface {
+    const modifierInterfaces: ModifierInterface[] = [];
+    this.modifiers &&
+      this.modifiers.forEach((modifier) =>
+        modifierInterfaces.push(modifier.toInterface())
+      );
+    return {
+      name: this.name,
+      description: this.description,
+      exhaustable: this.exhaustable,
+      hasModifiers: this.hasModifiers,
+      modifiers: modifierInterfaces,
+    };
   }
 }

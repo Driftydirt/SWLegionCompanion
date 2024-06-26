@@ -10,6 +10,8 @@ import { westar35BlasterPistols } from "../weapons/westar35_blaster_pistols";
 export class MandalorianResistance extends UnitHeavyWeapon {
   constructor(heavyWeapon?: HeavyWeapon, upgradeCards?: UpgradeCard[]) {
     super(
+      undefined,
+
       "Mandalorian Resistance",
       3,
       1,

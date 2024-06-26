@@ -2,6 +2,7 @@ import { HeavyWeapon } from "../heavy_weapon";
 import { Disciplined } from "../modifiers/disciplined";
 import { Precise } from "../modifiers/precise";
 import { Ready } from "../modifiers/ready";
+import { UnitNoExtra } from "../unit_no_extra";
 import { UnitUpgradeCard } from "../unit_upgrade_card";
 import { UpgradeCard } from "../upgrade_card";
 import { Weapon } from "../weapon";
@@ -10,11 +11,12 @@ import { e11_d } from "../weapons/e11_d";
 import { razorClawsShockProd } from "../weapons/razor_claws_shock_prod";
 import { se14_s } from "../weapons/se14_s";
 
-export class DewbackRider extends UnitUpgradeCard {
+export class DewbackRider extends UnitNoExtra {
   constructor(armament?: Weapon, upgradeCards?: UpgradeCard[]) {
     const weapons: Weapon[] = [razorClawsShockProd];
     armament && weapons.push(armament);
     super(
+      undefined,
       "Dewback Rider",
       1,
       6,

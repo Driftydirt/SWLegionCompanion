@@ -3,6 +3,7 @@ import { Impact } from "../modifiers/impact";
 import { Pierce } from "../modifiers/pierce";
 
 export const anakinLightsaber = new Weapon(
+  undefined,
   "Anakin's Lightsaber",
   0,
   6,

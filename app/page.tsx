@@ -8,7 +8,7 @@ import { rebelTrooper } from "./personnel/rebel_trooper";
 import { LukeCommander } from "./units/luke_commander";
 import { RebelTroopers } from "./units/rebel_troopers";
 import { RebelVeterans } from "./units/rebel_veterans";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArmyViewer } from "./ui/army_viewer";
 import { RebelOfficer } from "./units/rebel_officer";
 import { Mark2MediumBlasterTrooper } from "./units/mk2_medium_blaster_trooper";
@@ -33,37 +33,74 @@ import { t21 } from "./weapons/t21";
 import { e11_d_focused_config } from "./weapons/e11d_focused";
 import { dt_f16 } from "./heavy_weapons/dt-f16";
 import { DuckAndCover } from "./upgrade_cards/training/duck_and_cover";
+import { ArmyInterface } from "./interfaces";
 
-const rebelArmyInit: Army = new Army([
-  new LukeCommander([new ForcePush(), new ForceReflexes()]),
-  new RebelOfficer([new Vigilance(), new PortableScanner()]),
-  new RebelTroopers(z6Trooper, rebelTrooper),
-  new RebelVeterans(undefined, rebelTrooper),
-  new Mark2MediumBlasterTrooper(),
-  new MandalorianResistance(beskadDuelist, [
-    new HqUplink(),
-    new OffensivePush(),
-  ]),
-  new MandalorianResistance(beskadDuelist, [
-    new HqUplink(),
-    new OffensivePush(),
-  ]),
-]);
-const empireArmyInit: Army = new Army([
-  new VaderCommander([new ForcePush(), new ForceReflexes(), new SaberThrow()]),
-  new Stormtroopers(dlt19Trooper),
-  new Stormtroopers(dlt19Trooper, stormtrooper),
-  new ImperialDeathTroopers(dt_f16, e11_d_focused_config, [new DuckAndCover()]),
-  new ImperialRoyalGuards(electrostaffGuard),
-  new DewbackRider(t21),
-]);
+const blankRebelArmy: Army = new Army(
+  [
+    new LukeCommander([new ForcePush(), new ForceReflexes()]),
+    new RebelOfficer([new Vigilance(), new PortableScanner()]),
+    new RebelTroopers(z6Trooper, rebelTrooper),
+    new RebelVeterans(undefined, rebelTrooper),
+    new Mark2MediumBlasterTrooper(),
+    new MandalorianResistance(beskadDuelist, [
+      new HqUplink(),
+      new OffensivePush(),
+    ]),
+    new MandalorianResistance(beskadDuelist, [
+      new HqUplink(),
+      new OffensivePush(),
+    ]),
+  ],
+  "rebels"
+);
+const blankEmpireArmy: Army = new Army(
+  [
+    new VaderCommander([
+      new ForcePush(),
+      new ForceReflexes(),
+      new SaberThrow(),
+    ]),
+    new Stormtroopers(dlt19Trooper),
+    new Stormtroopers(dlt19Trooper, stormtrooper),
+    new ImperialDeathTroopers(dt_f16, e11_d_focused_config, [
+      new DuckAndCover(),
+    ]),
+    new ImperialRoyalGuards(electrostaffGuard),
+    new DewbackRider(t21),
+  ],
+  "empire"
+);
 export default function Home() {
-  // Initialize Firebase
+  let empireArmyInit = blankEmpireArmy;
+  let rebelArmyInit = blankRebelArmy;
 
+  if (typeof window !== "undefined") {
+    let retrievedEmpire = window.localStorage.getItem("empire");
+    if (retrievedEmpire) {
+      const armyInterface = JSON.parse(retrievedEmpire) as ArmyInterface;
+      empireArmyInit = new Army(undefined, undefined, armyInterface);
+      console.log(armyInterface);
+    }
+  }
+
+  if (typeof window !== "undefined") {
+    const retrievedRebels = window.localStorage.getItem("rebels");
+    if (retrievedRebels) {
+      rebelArmyInit = JSON.parse(retrievedRebels);
+    }
+  }
   const [rebelArmy, setRebelArmy] = useState<Army>(rebelArmyInit);
   const [empireArmy, setEmpireArmy] = useState<Army>(empireArmyInit);
+
   const [faction, setFaction] = useState<Army>();
   const onSave = () => {
+    if (faction && typeof window !== "undefined") {
+      const armyInterface = faction.toInterface();
+      window.localStorage.setItem(
+        faction?.getId(),
+        JSON.stringify(armyInterface)
+      );
+    }
     setFaction(undefined);
     return;
   };

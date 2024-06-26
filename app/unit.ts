@@ -1,3 +1,9 @@
+import {
+  BaseUnitInterface,
+  ModifierInterface,
+  UnitInterface,
+  WeaponInterface,
+} from "./interfaces";
 import { Modifier } from "./modifier";
 import { Weapon } from "./weapon";
 
@@ -18,32 +24,54 @@ export class Unit {
   protected unitType: string;
 
   constructor(
-    name: string,
-    baseMinis: number,
-    woundsPerMini: number,
-    courage: number,
-    weapon: Weapon[],
+    baseUnitInterface?: BaseUnitInterface,
 
-    movementSpeed: number,
-    defenceDie: string,
-    unitType: string,
+    name?: string,
+    baseMinis?: number,
+    woundsPerMini?: number,
+    courage?: number,
+    weapon?: Weapon[],
+
+    movementSpeed?: number,
+    defenceDie?: string,
+    unitType?: string,
     surgeToDefend: boolean = false,
     surgeToHit: boolean = false,
     surgeToCrit: boolean = false
   ) {
-    this.name = name;
-    this.woundsPerMini = woundsPerMini;
-    this.courage = courage;
-    this.weapon = weapon;
-    this.baseMinis = baseMinis;
-    this.currentBaseMinis = this.baseMinis;
-    this.defeated = false;
-    this.surgeToDefend = surgeToDefend;
-    this.surgeToCrit = surgeToCrit;
-    this.surgeToHit = surgeToHit;
-    this.movementSpeed = movementSpeed;
-    this.defenceDie = defenceDie;
-    this.unitType = unitType;
+    if (baseUnitInterface) {
+      const interfaceWeapon: Weapon[] = [];
+      baseUnitInterface.weapons?.forEach((weapon) =>
+        interfaceWeapon.push(new Weapon(weapon))
+      );
+      this.name = baseUnitInterface.name;
+      this.woundsPerMini = baseUnitInterface.woundsPerMini;
+      this.courage = baseUnitInterface.courage;
+      this.weapon = interfaceWeapon;
+      this.baseMinis = baseUnitInterface.baseMinis;
+      this.currentBaseMinis = baseUnitInterface.currentBaseMinis;
+      this.defeated = baseUnitInterface.defeated;
+      this.surgeToDefend = baseUnitInterface.surgeToDefend;
+      this.surgeToCrit = baseUnitInterface.surgeToCrit;
+      this.surgeToHit = baseUnitInterface.surgeToHit;
+      this.movementSpeed = baseUnitInterface.movementSpeed;
+      this.defenceDie = baseUnitInterface.defenceDie;
+      this.unitType = baseUnitInterface.unitType;
+    } else {
+      this.name = name ? name : "ligma";
+      this.woundsPerMini = woundsPerMini ? woundsPerMini : 0;
+      this.courage = courage ? courage : 0;
+      this.weapon = weapon ? weapon : [];
+      this.baseMinis = baseMinis ? baseMinis : 0;
+      this.currentBaseMinis = this.baseMinis;
+      this.defeated = false;
+      this.surgeToDefend = surgeToDefend;
+      this.surgeToCrit = surgeToCrit;
+      this.surgeToHit = surgeToHit;
+      this.movementSpeed = movementSpeed ? movementSpeed : 0;
+      this.defenceDie = defenceDie ? defenceDie : "";
+      this.unitType = unitType ? unitType : "";
+    }
   }
 
   public getMovementSpeed(): number {
@@ -112,5 +140,33 @@ export class Unit {
 
   public setDefeated(value: boolean) {
     this.defeated = value;
+  }
+
+  public toBaseUnitInterface(): BaseUnitInterface {
+    const weaponInterfaces: WeaponInterface[] = [];
+    this.weapon.forEach((weapon) =>
+      weaponInterfaces.push(weapon.toWeaponInterface())
+    );
+    const modifierInterfaces: ModifierInterface[] = [];
+    this.modifiers &&
+      this.modifiers.forEach((modifier) =>
+        modifierInterfaces.push(modifier.toInterface())
+      );
+    return {
+      baseMinis: this.baseMinis,
+      currentBaseMinis: this.currentBaseMinis,
+      name: this.name,
+      woundsPerMini: this.woundsPerMini,
+      courage: this.courage,
+      movementSpeed: this.movementSpeed,
+      unitType: this.unitType,
+      weapons: weaponInterfaces,
+      modifiers: modifierInterfaces,
+      defeated: this.defeated,
+      defenceDie: this.defenceDie,
+      surgeToCrit: this.surgeToCrit,
+      surgeToHit: this.surgeToHit,
+      surgeToDefend: this.surgeToDefend,
+    };
   }
 }

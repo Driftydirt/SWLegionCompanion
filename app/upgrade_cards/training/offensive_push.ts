@@ -4,8 +4,12 @@ import { UpgradeCard } from "@/app/upgrade_card";
 
 export class OffensivePush extends UpgradeCard {
   constructor() {
-    super("Offensive Push", "While performing a move, gain Tactical 1", true, [
-      new Tactical(1),
-    ]);
+    super(
+      undefined,
+      "Offensive Push",
+      "While performing a move, gain Tactical 1",
+      true,
+      [new Tactical(1)]
+    );
   }
 }

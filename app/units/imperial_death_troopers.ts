@@ -18,6 +18,7 @@ export class ImperialDeathTroopers extends UnitHeavyWeapon {
     const weapons: Weapon[] = [cqc, se14_s, e11_d];
     armament && weapons.push(armament);
     super(
+      undefined,
       "Imperial Death Troopers",
       4,
       1,

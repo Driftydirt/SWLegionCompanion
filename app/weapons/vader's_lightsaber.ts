@@ -3,6 +3,8 @@ import { Impact } from "../modifiers/impact";
 import { Pierce } from "../modifiers/pierce";
 
 export const vadersLightsaber = new Weapon(
+  undefined,
+
   "Vader's Lightsaber",
   0,
   0,

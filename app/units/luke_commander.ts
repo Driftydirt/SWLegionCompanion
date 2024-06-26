@@ -1,7 +1,7 @@
 import { ForceUpgrade } from "../force_upgrades";
 import { Charge } from "../modifiers/charge";
 import { Deflect } from "../modifiers/deflect";
-import { ImmunePierce, immunePierce } from "../modifiers/immune_pierce";
+import { ImmunePierce } from "../modifiers/immune_pierce";
 import { Jump } from "../modifiers/jump";
 import { UnitForce } from "../unit_force";
 import { anakinLightsaber } from "../weapons/anakin's_lightsaber";
@@ -10,6 +10,8 @@ import { lukeBlaster } from "../weapons/luke's_blaster";
 export class LukeCommander extends UnitForce {
   constructor(forceUpgrades: ForceUpgrade[]) {
     super(
+      undefined,
+
       "Luke Skywalker",
       1,
       6,

@@ -1,13 +1,11 @@
-import { UnitForceInterface } from "./interfaces";
+import { UnitNoExtraInterface } from "./interfaces";
 import { UnitUpgradeCard } from "./unit_upgrade_card";
 import { UpgradeCard } from "./upgrade_card";
 import { Weapon } from "./weapon";
 
-export class UnitForce extends UnitUpgradeCard {
-  // figure out how to store the upgrades 1) separate array for each, 2) joined array
-
+export class UnitNoExtra extends UnitUpgradeCard {
   constructor(
-    unitForceInterface?: UnitForceInterface,
+    unitNoExtraInterface?: UnitNoExtraInterface,
     name?: string,
     numberOfMinis?: number,
     woundsPerMini?: number,
@@ -19,11 +17,11 @@ export class UnitForce extends UnitUpgradeCard {
     surgeToDefend: boolean = false,
     surgeToHit: boolean = false,
     surgeToCrit: boolean = false,
+
     upgradeCards?: UpgradeCard[]
   ) {
-    if (unitForceInterface) {
-      super(unitForceInterface.unitUpgradeCard);
-    } else
+    if (unitNoExtraInterface) super(unitNoExtraInterface?.unitUpgradeCard);
+    else
       super(
         undefined,
         name,
@@ -40,9 +38,10 @@ export class UnitForce extends UnitUpgradeCard {
         upgradeCards
       );
   }
-  public toInterface(): UnitForceInterface {
+
+  public toInterface(): UnitNoExtraInterface {
     return {
-      type: "Force",
+      type: "NoExtra",
       unitUpgradeCard: super.toUnitUpgradeCardInterface(),
     };
   }
