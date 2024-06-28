@@ -29,12 +29,14 @@ export class UnitPersonnelHeavyWeapon extends UnitUpgradeCard {
   ) {
     if (unitPersonnelHeavyWeaponInterface) {
       super(unitPersonnelHeavyWeaponInterface.unitUpgradeCard);
-      this.heavyWeapon = new HeavyWeapon(
-        unitPersonnelHeavyWeaponInterface.heavyWeapon
-      );
-      this.personnel = new Personnel(
-        unitPersonnelHeavyWeaponInterface.personnel
-      );
+      if (unitPersonnelHeavyWeaponInterface.heavyWeapon)
+        this.heavyWeapon = new HeavyWeapon(
+          unitPersonnelHeavyWeaponInterface.heavyWeapon
+        );
+      if (unitPersonnelHeavyWeaponInterface.personnel)
+        this.personnel = new Personnel(
+          unitPersonnelHeavyWeaponInterface.personnel
+        );
       this.heavyWeaponDefeated =
         unitPersonnelHeavyWeaponInterface.heavyWeaponDefeated;
     } else {

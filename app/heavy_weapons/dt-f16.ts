@@ -3,6 +3,7 @@ import { Compel } from "../modifiers/compel";
 import { Impact } from "../modifiers/impact";
 
 export const dt_f16 = new HeavyWeapon(
+  undefined,
   "DT-F16",
   2,
   1,

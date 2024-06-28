@@ -27,7 +27,8 @@ export class UnitPersonnel extends UnitUpgradeCard {
   ) {
     if (unitPersonnelInterface) {
       super(unitPersonnelInterface.unitUpgradeCard);
-      this.personnel = new Personnel(unitPersonnelInterface.personnel);
+      if (unitPersonnelInterface.personnel)
+        this.personnel = new Personnel(unitPersonnelInterface.personnel);
     } else {
       super(
         undefined,

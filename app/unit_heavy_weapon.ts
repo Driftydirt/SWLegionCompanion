@@ -26,7 +26,10 @@ export class UnitHeavyWeapon extends UnitUpgradeCard {
   ) {
     if (unitHeavyWeaponInterface) {
       super(unitHeavyWeaponInterface.unitUpgradeCard);
-      this.heavyWeapon = new HeavyWeapon(unitHeavyWeaponInterface.heavyWeapon);
+      if (unitHeavyWeaponInterface.heavyWeapon)
+        this.heavyWeapon = new HeavyWeapon(
+          unitHeavyWeaponInterface.heavyWeapon
+        );
       this.heavyWeaponDefeated = unitHeavyWeaponInterface.heavyWeaponDefeated;
     } else {
       super(

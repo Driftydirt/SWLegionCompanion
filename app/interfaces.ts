@@ -44,6 +44,7 @@ export interface UpgradeCardInterface {
   name: string;
   description: string;
   exhaustable: boolean;
+  exhausted: boolean | undefined;
   hasModifiers: boolean;
   modifiers: ModifierInterface[] | undefined;
 }

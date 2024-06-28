@@ -3,6 +3,7 @@ import { Impact } from "../modifiers/impact";
 import { z6 } from "../weapons/z6";
 
 export const dlt19Trooper = new HeavyWeapon(
+  undefined,
   "DLT-19 Trooper",
   1,
   0,

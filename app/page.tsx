@@ -74,23 +74,10 @@ export default function Home() {
   let empireArmyInit = blankEmpireArmy;
   let rebelArmyInit = blankRebelArmy;
 
-  if (typeof window !== "undefined") {
-    let retrievedEmpire = window.localStorage.getItem("empire");
-    if (retrievedEmpire) {
-      const armyInterface = JSON.parse(retrievedEmpire) as ArmyInterface;
-      empireArmyInit = new Army(undefined, undefined, armyInterface);
-      console.log(armyInterface);
-    }
-  }
-
-  if (typeof window !== "undefined") {
-    const retrievedRebels = window.localStorage.getItem("rebels");
-    if (retrievedRebels) {
-      rebelArmyInit = JSON.parse(retrievedRebels);
-    }
-  }
   const [rebelArmy, setRebelArmy] = useState<Army>(rebelArmyInit);
   const [empireArmy, setEmpireArmy] = useState<Army>(empireArmyInit);
+  const [savedRebelArmy, setSavedRebelArmy] = useState<Army>();
+  const [savedEmpireArmy, setSavedEmpireArmy] = useState<Army>();
 
   const [faction, setFaction] = useState<Army>();
   const onSave = () => {
@@ -105,14 +92,46 @@ export default function Home() {
     return;
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && !savedEmpireArmy && !savedEmpireArmy) {
+      const retrievedEmpire = window.localStorage.getItem("empire");
+      const retrievedRebels = window.localStorage.getItem("rebels");
+      if (retrievedRebels) {
+        const armyInterface = JSON.parse(retrievedRebels);
+
+        if (armyInterface satisfies ArmyInterface) {
+          setSavedRebelArmy(new Army(undefined, undefined, armyInterface));
+        }
+      }
+      if (retrievedEmpire) {
+        const armyInterface = JSON.parse(retrievedEmpire);
+        if (armyInterface satisfies ArmyInterface) {
+          setSavedEmpireArmy(new Army(undefined, undefined, armyInterface));
+        }
+      }
+    }
+  });
+
   return (
     <>
       {faction != undefined ? (
         <ArmyViewer army={faction} onSave={onSave}></ArmyViewer>
       ) : (
         <>
-          <Button onClick={() => setFaction(rebelArmy)}>Rebels</Button>
-          <Button onClick={() => setFaction(empireArmy)}>Empire</Button>
+          <Button onClick={() => setFaction(rebelArmy)}>New Rebels</Button>
+
+          {savedRebelArmy ? (
+            <Button onClick={() => setFaction(savedRebelArmy)}>
+              Saved Rebel Army
+            </Button>
+          ) : null}
+          <Button onClick={() => setFaction(empireArmy)}>New Empire</Button>
+
+          {savedEmpireArmy ? (
+            <Button onClick={() => setFaction(savedEmpireArmy)}>
+              Saved Empire Army
+            </Button>
+          ) : null}
         </>
       )}
     </>

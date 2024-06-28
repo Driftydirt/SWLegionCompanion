@@ -24,6 +24,7 @@ export class UpgradeCard {
       this.name = upgradeCardInterface.name;
       this.description = upgradeCardInterface.description;
       this.exhaustable = upgradeCardInterface.exhaustable;
+      this.exhausted = upgradeCardInterface.exhausted;
       this.modifiers = interfacesModifers;
     } else {
       this.name = name ? name : "";
@@ -33,7 +34,8 @@ export class UpgradeCard {
     }
 
     this.hasModifiers = modifiers != undefined;
-    if (this.exhaustable) this.exhausted = false;
+    if (this.exhaustable && this.exhausted === undefined)
+      this.exhausted = false;
   }
   public getName(): string {
     return this.name;
@@ -71,6 +73,7 @@ export class UpgradeCard {
       name: this.name,
       description: this.description,
       exhaustable: this.exhaustable,
+      exhausted: this.exhausted,
       hasModifiers: this.hasModifiers,
       modifiers: modifierInterfaces,
     };

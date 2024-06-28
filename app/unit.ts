@@ -58,7 +58,7 @@ export class Unit {
       this.defenceDie = baseUnitInterface.defenceDie;
       this.unitType = baseUnitInterface.unitType;
     } else {
-      this.name = name ? name : "ligma";
+      this.name = name ?? "";
       this.woundsPerMini = woundsPerMini ? woundsPerMini : 0;
       this.courage = courage ? courage : 0;
       this.weapon = weapon ? weapon : [];
