@@ -48,6 +48,12 @@ export default function WeaponOverview({
     setFreeMinis(maxMinis - allocatedMinis);
   };
 
+  const clearSelection = () => {
+    if (minisPerWeapon === undefined) return;
+    weapons.forEach((weapon) => minisPerWeapon.set(weapon, 0));
+    setWeaponSelected(false);
+  };
+
   useEffect(() => {
     if (!minisPerWeapon) setMinisPerWeapon(new Map());
   }, [minisPerWeapon]);
@@ -95,6 +101,7 @@ export default function WeaponOverview({
       </Row>
       {!unitDefeated && weaponSelected ? (
         <div>
+          <Button onClick={() => clearSelection()}>Clear Selection</Button>
           <Button
             onClick={() => {
               setAttackPool(generateAttackPool(minisPerWeapon));

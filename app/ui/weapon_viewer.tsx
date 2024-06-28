@@ -27,7 +27,7 @@ export default function WeaponViewer({
   const [minRange, setMinRange] = useState<number>();
   const [maxRange, setMaxRange] = useState<number>();
   const [modifiers, setModifiers] = useState<Modifier[]>();
-  const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
+  const [currentMinis, setCurrentMinis] = useState<number>();
   const [exhausted, setExhausted] = useState<boolean>();
   const [isExhaustible, setIsExhaustible] = useState<boolean>();
 
@@ -74,6 +74,10 @@ export default function WeaponViewer({
       setCurrentMinis(maxMinis);
     }
   }, [maxMinis]);
+
+  useEffect(() => {
+    if (initCurrentMinis === 0) setCurrentMinis(undefined);
+  }, [initCurrentMinis]);
 
   return (
     <>
