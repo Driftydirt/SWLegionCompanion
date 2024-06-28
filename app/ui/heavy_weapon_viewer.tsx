@@ -28,7 +28,7 @@ export default function HeavyWeaponViewer({
   const [minRange, setMinRange] = useState<number>();
   const [maxRange, setMaxRange] = useState<number>();
   const [modifiers, setModifiers] = useState<Modifier[]>();
-  const [currentMinis, setCurrentMinis] = useState(initCurrentMinis);
+  const [currentMinis, setCurrentMinis] = useState<number>();
   const [exhausted, setExhausted] = useState<boolean>();
   const [isExhaustible, setIsExhaustible] = useState<boolean>();
 
@@ -62,6 +62,10 @@ export default function HeavyWeaponViewer({
       handleChangingMinisPerWeapon(weapon, 0);
     }
   }, [heavyWeaponDefeated]);
+
+  useEffect(() => {
+    if (initCurrentMinis === 0) setCurrentMinis(undefined);
+  }, [initCurrentMinis]);
 
   return (
     <>

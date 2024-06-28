@@ -51,6 +51,7 @@ export default function WeaponOverview({
   const clearSelection = () => {
     if (minisPerWeapon === undefined) return;
     weapons.forEach((weapon) => minisPerWeapon.set(weapon, 0));
+    if (heavyWeapon) minisPerWeapon.set(heavyWeapon, 0);
     setWeaponSelected(false);
   };
 
