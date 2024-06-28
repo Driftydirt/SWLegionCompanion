@@ -1,14 +1,14 @@
-import { ForceUpgrade } from "../force_upgrades";
 import { CompelTrooper } from "../modifiers/compel";
 import { Deflect } from "../modifiers/deflect";
 import { ImmunePierce } from "../modifiers/immune_pierce";
 import { MasterOfTheForce } from "../modifiers/master_of_the_force";
 import { Relentless } from "../modifiers/relentless";
 import { UnitForce } from "../unit_force";
+import { UpgradeCard } from "../upgrade_card";
 import { vadersLightsaber } from "../weapons/vader's_lightsaber";
 
 export class VaderCommander extends UnitForce {
-  constructor(forceUpgrades: ForceUpgrade[]) {
+  constructor(forceUpgrades: UpgradeCard[]) {
     super(
       undefined,
 
