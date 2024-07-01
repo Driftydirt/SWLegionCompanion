@@ -21,7 +21,7 @@
 .icons {
   display: inline-block;
   margin: 2px;
-  font-size: 35px;
+  font-size: 40px;
   -webkit-text-stroke-width: 1px;
 }
 .health {
@@ -33,4 +33,8 @@
   @extend .icons;
   color: rgb(254, 241, 1);
   -webkit-text-stroke-color: rgb(184, 172, 7);
+}
+
+.dice {
+  margin-top: 45px;
 }

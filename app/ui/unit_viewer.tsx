@@ -16,6 +16,9 @@ import { UpgradeCard } from "../upgrade_card";
 import UpgradeCardViewer from "./upgrage_card_viewer";
 import { Health } from "./icons/health";
 import { Courage } from "./icons/courage";
+import { DefenceDice } from "./icons/defence_dice";
+import { DefenceViewer } from "./defence_viewer";
+import { SurgeViewer } from "./surge_viewer";
 
 type UnitViewerProps = {
   unit: Unit;
@@ -200,23 +203,34 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
               </Row>
             </Col>
           ) : null}
-          <Col className="right-text">
-            <Health wounds={woundsPerMini}></Health>
-            <Courage courage={courage}></Courage>
-          </Col>
+          {heavyWeapon ? (
+            <Col sm={{ span: 3, offset: 1 }} style={{ paddingRight: 0 }}>
+              <DefenceViewer
+                colour={defenceDie}
+                wounds={woundsPerMini}
+                courage={courage}
+              ></DefenceViewer>
+            </Col>
+          ) : (
+            <Col sm={{ span: 3, offset: 4 }} style={{ paddingRight: 0 }}>
+              <DefenceViewer
+                colour={defenceDie}
+                wounds={woundsPerMini}
+                courage={courage}
+              ></DefenceViewer>
+            </Col>
+          )}
         </Row>
         <Row>
           <Col sm={8}>
             <ModifierViewer modifiers={unit.getModifiers()}></ModifierViewer>
           </Col>
           <Col className="right-text">
-            <Row>
-              <p>Defence Die: {defenceDie}</p>
-              {surgeToCrit || surgeToHit ? (
-                <p>Attack Surge: {surgeToCrit ? "Crit" : "Hit"}</p>
-              ) : null}
-              {surgeToDefend ? <p>Defence Surge: Defend</p> : null}
-            </Row>
+            <SurgeViewer
+              surgeToCrit={surgeToCrit}
+              surgeToHit={surgeToHit}
+              surgeToDefend={surgeToDefend}
+            ></SurgeViewer>
             <Row>
               <p>Movement Speed: {movementSpeed}</p>
             </Row>
