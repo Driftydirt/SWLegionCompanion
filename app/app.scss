@@ -1,0 +1,36 @@
+.btn-half {
+  width: 100%;
+}
+.modifiers {
+  display: inline-block;
+}
+.center-text {
+  text-align: center;
+}
+.exhausted {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.defeated {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.right-text {
+  text-align: right;
+}
+.icons {
+  display: inline-block;
+  margin: 2px;
+  font-size: 35px;
+  -webkit-text-stroke-width: 1px;
+}
+.health {
+  @extend .icons;
+  color: green;
+  -webkit-text-stroke-color: darkgreen;
+}
+.courage {
+  @extend .icons;
+  color: rgb(254, 241, 1);
+  -webkit-text-stroke-color: rgb(184, 172, 7);
+}

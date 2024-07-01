@@ -1,7 +1,5 @@
 "use client";
 
-import "../app.css";
-
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
@@ -16,6 +14,8 @@ import { UnitPersonnelHeavyWeapon } from "../unit_personnel_heavy_weapon";
 import { Weapon } from "../weapon";
 import { UpgradeCard } from "../upgrade_card";
 import UpgradeCardViewer from "./upgrage_card_viewer";
+import { Health } from "./icons/health";
+import { Courage } from "./icons/courage";
 
 type UnitViewerProps = {
   unit: Unit;
@@ -201,8 +201,8 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
             </Col>
           ) : null}
           <Col className="right-text">
-            <p>Wounds: {woundsPerMini}</p>
-            <p>Courage: {courage}</p>
+            <Health wounds={woundsPerMini}></Health>
+            <Courage courage={courage}></Courage>
           </Col>
         </Row>
         <Row>
