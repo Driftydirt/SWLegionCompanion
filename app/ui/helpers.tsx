@@ -1,5 +1,6 @@
-import { Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Weapon } from "../weapon";
+import { AttackDice } from "./icons/attack_dice";
 
 export function displayAttackPool(attackPool: AttackPool) {
   const hasWhiteDice = attackPool.whiteDice != 0;
@@ -7,9 +8,28 @@ export function displayAttackPool(attackPool: AttackPool) {
   const hasRedDice = attackPool.redDice != 0;
   return (
     <Row>
-      {hasWhiteDice ? <p>{attackPool.whiteDice} W</p> : null}
-      {hasBlackDice ? <p>{attackPool.blackDice} B</p> : null}
-      {hasRedDice ? <p>{attackPool.redDice} R</p> : null}
+      {hasWhiteDice ? (
+        <>
+          <Col sm={{ span: 4 }} style={{ display: "flex" }}>
+            <p className="white">{attackPool.whiteDice} </p>
+            <AttackDice colour="White"></AttackDice>
+          </Col>
+        </>
+      ) : null}
+      {hasBlackDice ? (
+        <Col sm={{ span: 4 }} style={{ display: "flex" }}>
+          <p className="black">{attackPool.blackDice} </p>
+          <AttackDice colour="Black"></AttackDice>
+        </Col>
+      ) : null}
+      {hasRedDice ? (
+        <>
+          <Col sm={{ span: 4 }} style={{ display: "flex" }}>
+            <p className="red">{attackPool.redDice} </p>
+            <AttackDice colour="Red"></AttackDice>
+          </Col>
+        </>
+      ) : null}
     </Row>
   );
 }

@@ -34,7 +34,32 @@
   color: rgb(254, 241, 1);
   -webkit-text-stroke-color: rgb(184, 172, 7);
 }
+.white {
+  @extend .icons;
+  font-size: 35px;
+
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke-color: rgb(0, 0, 0);
+}
+.red {
+  @extend .icons;
+  font-size: 35px;
+
+  color: rgb(142, 1, 1);
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+.black {
+  @extend .icons;
+  font-size: 35px;
+
+  color: rgb(0, 0, 0);
+  -webkit-text-stroke-color: rgb(179, 179, 179);
+}
 
 .dice {
   margin-top: 45px;
+}
+
+.attack-dice {
+  margin-top: 8px;
 }
