@@ -7,6 +7,7 @@ import { UpgradeCard } from "../upgrade_card";
 import { Weapon } from "../weapon";
 import { cqc } from "../weapons/cqc";
 import { e11_d } from "../weapons/e11_d";
+import { e11_d_grenade_config } from "../weapons/e11d_focused";
 import { se14_s } from "../weapons/se14_s";
 
 export class ImperialDeathTroopers extends UnitHeavyWeapon {
@@ -15,7 +16,7 @@ export class ImperialDeathTroopers extends UnitHeavyWeapon {
     armament?: Weapon,
     upgradeCards?: UpgradeCard[]
   ) {
-    const weapons: Weapon[] = [cqc, se14_s, e11_d];
+    const weapons: Weapon[] = [cqc, se14_s, e11_d, e11_d_grenade_config];
     armament && weapons.push(armament);
     super(
       undefined,

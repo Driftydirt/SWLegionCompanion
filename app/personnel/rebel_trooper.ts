@@ -1,8 +1,7 @@
 import { Personnel } from "../personnel";
 
-export const rebelTrooper = new Personnel(
-  undefined,
-  "Rebel Trooper",
-  1,
-  undefined
-);
+export class RebelTrooper extends Personnel {
+  constructor() {
+    super(undefined, "Rebel Trooper", 1, undefined);
+  }
+}

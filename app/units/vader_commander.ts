@@ -8,7 +8,7 @@ import { UpgradeCard } from "../upgrade_card";
 import { vadersLightsaber } from "../weapons/vader's_lightsaber";
 
 export class VaderCommander extends UnitForce {
-  constructor(forceUpgrades: UpgradeCard[]) {
+  constructor(forceUpgrades?: UpgradeCard[]) {
     super(
       undefined,
 
