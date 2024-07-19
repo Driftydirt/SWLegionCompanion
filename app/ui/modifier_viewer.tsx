@@ -27,6 +27,7 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
             modifiers.map((e) => (
               <>
                 <OverlayTrigger
+                  trigger={["click", "hover"]}
                   placement="right"
                   delay={{ show: 100, hide: 400 }}
                   overlay={<Tooltip>{e.getDescription()}</Tooltip>}
