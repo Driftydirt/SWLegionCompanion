@@ -12,8 +12,11 @@ export function ArmyViewer({ army, onSave }: ArmyProps) {
     <>
       <Button onClick={() => onSave()}>Return and Save</Button>
       <Row>
-        {army.getUnits().map((unit) => (
-          <UnitViewer key={unit.getName()} unit={unit}></UnitViewer>
+        {army.getUnits().map((unit, index) => (
+          <UnitViewer
+            key={unit.getName() + "_" + index}
+            unit={unit}
+          ></UnitViewer>
         ))}
       </Row>
     </>

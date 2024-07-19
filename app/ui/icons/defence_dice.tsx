@@ -10,7 +10,7 @@ const diceLookup: Record<string, string> = {
   Red: "/icons/RedDice.png",
 };
 export function DefenceDice({ colour }: DefenceDice) {
-  const [png, setPng] = useState<string>();
+  const [png, setPng] = useState<string>(diceLookup["White"]);
 
   useEffect(() => {
     if (colour) setPng(diceLookup[colour]);

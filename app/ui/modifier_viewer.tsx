@@ -25,8 +25,9 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
         {hasModifiers
           ? modifiers &&
             modifiers.map((e) => (
-              <>
+              <div key={e.getName()}>
                 <OverlayTrigger
+                  key={e.getName()}
                   trigger={["click", "hover"]}
                   placement="right"
                   delay={{ show: 100, hide: 400 }}
@@ -40,7 +41,7 @@ export default function ModifierViewer({ modifiers }: ModifierViewerProps) {
                     <p className="modifiers">{e.getName()}</p>
                   )}
                 </OverlayTrigger>
-              </>
+              </div>
             ))
           : null}
       </Row>
