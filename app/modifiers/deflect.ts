@@ -6,7 +6,7 @@ export class Deflect extends Modifier {
       undefined,
 
       "Deflect",
-      "When a unit that has the Deflect keyword is defending against a ranged attack, if it spends any dodge tokens during the Apply Dodge and Cover step, its surge conversion chart gains defence Surge Symbol:block Symbol. The attacker suffers one wound for each defence surge defence Surge Symbol result rolled by the defender during the Roll Defence Dice step.",
+      "While a unit with the Defect keyword is defending against a ranged attack or using the Guardian X keyword, its surge conversion chart gains e:d. Additionally, during the Convert Defense Surges step before converting e results, the attacker sufers one wound if there is at least one e result in the defense roll. If the Defect keyword causes the attacking unit to be defeated, the attack continues, and the defender can still sufer wounds. While defending or using the Guardian X keyword against an attack in which weapons with the High Velocity weapon keyword are the only weapons in an attack pool, the Defect keyword has no efect.",
       amount
     );
   }

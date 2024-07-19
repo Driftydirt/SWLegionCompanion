@@ -1,4 +1,5 @@
 import { HeavyWeapon } from "../heavy_weapon";
+import { Agile } from "../modifiers/agile";
 import { Nimble } from "../modifiers/nimble";
 import { Personnel } from "../personnel";
 import { UnitPersonnelHeavyWeapon } from "../unit_personnel_heavy_weapon";
@@ -23,6 +24,6 @@ export class RebelTroopers extends UnitPersonnelHeavyWeapon {
       true
     );
 
-    this.modifiers = [new Nimble(1)];
+    this.modifiers = [new Nimble(), new Agile(1)];
   }
 }

@@ -6,9 +6,9 @@ export const anakinLightsaber = new Weapon(
   undefined,
   "Anakin's Lightsaber",
   0,
-  6,
+  3,
+  2,
   0,
   0,
-  0,
-  [new Impact(2), new Pierce(2)]
+  [new Impact(2), new Pierce(1)]
 );

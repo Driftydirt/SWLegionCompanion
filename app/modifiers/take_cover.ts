@@ -6,7 +6,7 @@ export class TakeCover extends Modifier {
       undefined,
 
       "Take Cover",
-      "As a card action, a unit with the Take Cover X keyword can choose up to X friendly units at range 1. Each chosen unit gains one dodge token.",
+      "As a card action, a unit with the Take Cover X keyword can choose up to X friendly units at 2. Each chosen unit gains one dodge token",
       amount
     );
   }

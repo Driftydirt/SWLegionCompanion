@@ -1,7 +1,10 @@
+import { Block } from "../modifiers/block";
 import { Charge } from "../modifiers/charge";
 import { Deflect } from "../modifiers/deflect";
 import { ImmunePierce } from "../modifiers/immune_pierce";
+import { Inspire } from "../modifiers/inspire";
 import { Jump } from "../modifiers/jump";
+import { Sharpshooter } from "../modifiers/sharpshooter";
 import { UnitForce } from "../unit_force";
 import { UpgradeCard } from "../upgrade_card";
 import { anakinLightsaber } from "../weapons/anakin's_lightsaber";
@@ -28,9 +31,11 @@ export class LukeCommander extends UnitForce {
 
     this.modifiers = [
       new Jump(1),
+      new Block(),
       new Charge(),
-      new Deflect(),
       new ImmunePierce(),
+      new Inspire(2),
+      new Sharpshooter(1),
     ];
   }
 }
