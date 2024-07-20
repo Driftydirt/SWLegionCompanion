@@ -6,6 +6,7 @@ import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import { Weapon } from "../weapon";
 import { Modifier } from "../modifier";
 import ModifierViewer from "./modifier_viewer";
+import { AttackDiceRoller } from "./attack_dice_roller";
 
 type WeaponViewerProps = {
   weapon: Weapon;
@@ -129,6 +130,7 @@ export default function WeaponViewer({
           </ButtonGroup>{" "}
         </Row>
         {attackPool && displayAttackPool(attackPool)}
+
         {modifiers ? (
           <div className="center-text">
             <ModifierViewer modifiers={modifiers}></ModifierViewer>

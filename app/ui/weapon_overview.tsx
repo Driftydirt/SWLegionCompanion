@@ -10,6 +10,7 @@ import WeaponViewer from "./weapon_viewer";
 import HeavyWeaponViewer from "./heavy_weapon_viewer";
 import { HeavyWeapon } from "../heavy_weapon";
 import { Weapon } from "../weapon";
+import { AttackDiceRoller } from "./attack_dice_roller";
 
 type WeaponOverviewProps = {
   weapons: Weapon[];
@@ -50,6 +51,7 @@ export default function WeaponOverview({
 
   const clearSelection = () => {
     if (minisPerWeapon === undefined) return;
+    setAttackPool(undefined);
     weapons.forEach((weapon) => minisPerWeapon.set(weapon, 0));
     if (heavyWeapon) minisPerWeapon.set(heavyWeapon, 0);
     setWeaponSelected(false);
@@ -114,6 +116,9 @@ export default function WeaponOverview({
             <div>
               {" "}
               {attackPool && displayAttackPool(attackPool)}
+              {attackPool ? (
+                <AttackDiceRoller attackPool={attackPool}></AttackDiceRoller>
+              ) : null}
               <Button variant="danger" onClick={() => setAttackPool(undefined)}>
                 Clear Attack Pool
               </Button>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ReactSVG } from "react-svg";
-type DefenceDice = {
+type AttackDice = {
   colour: string | undefined;
 };
 
@@ -10,7 +10,7 @@ const diceLookup: Record<string, string> = {
   Red: "/icons/redAttackDice.png",
   Black: "/icons/blackAttackDice.png",
 };
-export function AttackDice({ colour }: DefenceDice) {
+export function AttackDice({ colour }: AttackDice) {
   const [png, setPng] = useState<string>(diceLookup["White"]);
 
   useEffect(() => {
