@@ -17,7 +17,7 @@ export class UnitPersonnel extends UnitUpgradeCard {
     weapon?: Weapon[],
     personnel?: Personnel | undefined,
     movementSpeed?: number,
-    defenceDie?: string,
+    defenceDie?: "white" | "red",
     unitType?: string,
     surgeToDefend: boolean = false,
     surgeToHit: boolean = false,
