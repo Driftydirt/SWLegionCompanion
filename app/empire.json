@@ -1,0 +1,54 @@
+{
+  "listname": "Melee Leaning Army",
+  "points": 606,
+  "author": "Tabletop Admiral",
+  "armyFaction": "empire",
+  "commandCards": [
+    "Standing Orders",
+    "Implacable",
+    "Assault",
+    "Ambush",
+    "Master of Evil",
+    "New Ways to Motivate Them",
+    "Push"
+  ],
+  "contingencies": [],
+  "units": [
+    {
+      "name": "Darth Vader Dark Lord of the Sith",
+      "upgrades": ["Force Push", "Force Reflexes", "Saber Throw"],
+      "loadout": []
+    },
+    {
+      "name": "Stormtroopers",
+      "upgrades": ["DLT-19 Stormtrooper"],
+      "loadout": []
+    },
+    {
+      "name": "Stormtroopers",
+      "upgrades": ["DLT-19 Stormtrooper", "Stormtrooper"],
+      "loadout": []
+    },
+    {
+      "name": "Imperial Death Troopers",
+      "upgrades": ["DT-F16", "Duck and Cover", "E-11D Config"],
+      "loadout": []
+    },
+    {
+      "name": "Imperial Royal Guards",
+      "upgrades": ["Electrostaff Guard", "Tenacity"],
+      "loadout": []
+    },
+    {
+      "name": "Dewback Rider",
+      "upgrades": ["T-21 Blaster Rifle"],
+      "loadout": []
+    }
+  ],
+  "battlefieldDeck": {
+    "scenario": "standard",
+    "conditions": [],
+    "deployment": [],
+    "objective": []
+  }
+}

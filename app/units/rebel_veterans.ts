@@ -20,7 +20,7 @@ export class RebelVeterans extends UnitPersonnelHeavyWeapon {
       heavyWeapon,
       personnel,
       1,
-      "White",
+      "white",
       "Trooper",
       true,
       true

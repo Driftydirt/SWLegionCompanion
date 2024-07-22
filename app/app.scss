@@ -39,14 +39,14 @@
   font-size: 35px;
 
   color: rgb(255, 255, 255);
-  -webkit-text-stroke-color: rgb(0, 0, 0);
+  -webkit-text-stroke-color: rgb(142, 1, 1);
 }
 .red {
   @extend .icons;
   font-size: 35px;
 
   color: rgb(142, 1, 1);
-  -webkit-text-stroke-color: rgb(255, 255, 255);
+  -webkit-text-stroke-color: rgb(205, 202, 202);
 }
 .black {
   @extend .icons;
@@ -71,4 +71,15 @@ body {
 .totals {
   margin: 2px;
   font-size: 30px;
+}
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.defence-dice-roller {
+  margin-top: 0;
+}
+.defence-dice {
+  margin-top: 5px;
 }

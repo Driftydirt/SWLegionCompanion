@@ -5,8 +5,8 @@ import { DefenceDice } from "./icons/defence_dice";
 import { Courage } from "./icons/courage";
 import { Health } from "./icons/health";
 import { AttackPool } from "./helpers";
-import { AttackResults, DiceRoller } from "../dice_roller";
-import { AttackDice } from "./icons/attack_dice";
+import { AttackDice, AttackResults, DiceRoller } from "../dice_roller";
+import { AttackDiceViewer } from "./icons/attack_dice_viewer";
 type AttackRollViewerProps = {
   attackResults: AttackResults;
 };
@@ -22,6 +22,8 @@ export function AttackRollViewer({ attackResults }: AttackRollViewerProps) {
 
   const [hasMisses, setHasMisses] = useState<boolean>(false);
   const [misses, setMisses] = useState<number>();
+
+  const [diceArray, setDiceArray] = useState<AttackDice[]>();
 
   useEffect(() => {
     if (
@@ -77,146 +79,252 @@ export function AttackRollViewer({ attackResults }: AttackRollViewerProps) {
   return (
     <>
       {" "}
+      <Row>
+        <Col sm={{ span: 2 }} className="ml-auto">
+          <p className="totals">Totals </p>
+        </Col>
+      </Row>
       {hasCrits ? (
         <Row>
-          <Col sm={{ span: 2 }}>
-            {" "}
-            <p className="totals">Crits: </p>
-          </Col>
+          <Col sm={{ span: 2 }}> </Col>
           {attackResults.white.crits ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="White"></AttackDice>{" "}
-                <p className="white">{attackResults.white.crits} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.white.crits)].map((index) => (
+                  <AttackDiceViewer
+                    key={index}
+                    colour="White"
+                    type="Crit"
+                  ></AttackDiceViewer>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.black.crits ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Black"></AttackDice>{" "}
-                <p className="black">{attackResults.black.crits} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.black.crits)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Black"
+                      type="Crit"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.red.crits ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Red"></AttackDice>{" "}
-                <p className="red">{attackResults.red.crits} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.red.crits)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Red"
+                      type="Crit"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
-          <Col sm={{ span: 4 }} className="ml-auto">
-            <p>Total Crits: {crits}</p>
+          <Col
+            sm={{ span: 2 }}
+            style={{ display: "flex" }}
+            className="ml-auto "
+          >
+            <img
+              className="attack-dice"
+              src={"/icons/attack/BlackCrit.png"}
+              width={30}
+              height={30}
+              style={{ height: 30, marginTop: 20 }}
+            />
+            <p className="icons">{crits}</p>
           </Col>
         </Row>
       ) : null}
       {hasHits ? (
         <Row>
-          <Col sm={{ span: 2 }}>
-            {" "}
-            <p className="totals">Hits: </p>
-          </Col>
+          <Col sm={{ span: 2 }}> </Col>
           {attackResults.white.hits ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="White"></AttackDice>{" "}
-                <p className="white">{attackResults.white.hits} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.white.hits)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="White"
+                      type="Hit"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.black.hits ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Black"></AttackDice>{" "}
-                <p className="black">{attackResults.black.hits} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.black.hits)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Black"
+                      type="Hit"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.red.hits ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Red"></AttackDice>{" "}
-                <p className="red">{attackResults.red.hits} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.red.hits)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Red"
+                      type="Hit"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
-          <Col sm={{ span: 4 }} className="ml-auto">
-            <p>Total Hits: {hits}</p>
+          <Col
+            sm={{ span: 2 }}
+            style={{ display: "flex" }}
+            className="ml-auto "
+          >
+            <img
+              className="attack-dice"
+              src={"/icons/attack/BlackHit.png"}
+              width={30}
+              height={30}
+              style={{ height: 30, marginTop: 20 }}
+            />
+            <p className="icons">{hits}</p>
           </Col>
         </Row>
       ) : null}
       {hasSurges ? (
         <Row>
-          <Col sm={{ span: 2 }}>
-            {" "}
-            <p className="totals">Surges: </p>
-          </Col>
+          <Col sm={{ span: 2 }}> </Col>
           {attackResults.white.surges ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="White"></AttackDice>{" "}
-                <p className="white">{attackResults.white.surges} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.white.surges)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="White"
+                      type="Surge"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.black.surges ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Black"></AttackDice>{" "}
-                <p className="black">{attackResults.black.surges} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.black.surges)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Black"
+                      type="Surge"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.red.surges ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Red"></AttackDice>{" "}
-                <p className="red">{attackResults.red.surges} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.red.surges)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Red"
+                      type="Surge"
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
-          <Col sm={{ span: 4 }} className="ml-auto">
-            <p>Total Surges: {surges}</p>
+          <Col
+            sm={{ span: 2 }}
+            style={{ display: "flex" }}
+            className="ml-auto "
+          >
+            <img
+              className="attack-dice"
+              src={"/icons/attack/BlackAttackSurge.png"}
+              width={30}
+              height={30}
+              style={{ height: 30, marginTop: 20 }}
+            />
+            <p className="icons">{surges}</p>
           </Col>
         </Row>
       ) : null}
       {hasMisses ? (
         <Row>
-          <Col sm={{ span: 2 }}>
-            {" "}
-            <p className="totals">Misses: </p>
-          </Col>
+          <Col sm={{ span: 2 }}> </Col>
           {attackResults.white.misses ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="White"></AttackDice>{" "}
-                <p className="white">{attackResults.white.misses} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.white.misses)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="White"
+                      type={undefined}
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.black.misses ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Black"></AttackDice>{" "}
-                <p className="black">{attackResults.black.misses} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.black.misses)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Black"
+                      type={undefined}
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
           {attackResults.red.misses ? (
             <>
-              <Col sm={{ span: 2 }} style={{ display: "flex" }}>
-                <AttackDice colour="Red"></AttackDice>{" "}
-                <p className="red">{attackResults.red.misses} </p>
+              <Col style={{ display: "contents" }}>
+                {[...Array(attackResults.red.misses)].map((index) => (
+                  <>
+                    <AttackDiceViewer
+                      key={index}
+                      colour="Red"
+                      type={undefined}
+                    ></AttackDiceViewer>
+                  </>
+                ))}
               </Col>
             </>
           ) : null}{" "}
-          <Col className="ml-auto" sm={{ span: 4 }}>
-            <p>Total Misses: {misses}</p>
-          </Col>
         </Row>
       ) : null}
+      {}
     </>
   );
 }

@@ -17,7 +17,7 @@ export class RebelOfficer extends UnitNoExtra {
       2,
       [unarmed, a180],
       2,
-      "White",
+      "white",
       "Trooper",
       true,
       true,

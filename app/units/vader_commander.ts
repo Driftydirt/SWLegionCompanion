@@ -18,7 +18,7 @@ export class VaderCommander extends UnitForce {
       0,
       [vadersLightsaber],
       1,
-      "Red",
+      "red",
       "Trooper",
       false,
       false,

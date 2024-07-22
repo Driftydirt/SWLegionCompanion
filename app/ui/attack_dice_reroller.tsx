@@ -7,21 +7,31 @@ import { Health } from "./icons/health";
 import { AttackPool } from "./helpers";
 import { AttackResults, DiceRoller } from "../dice_roller";
 import { AttackRollViewer } from "./attack_roll_viewer";
-type AttackDiceRollerProps = {
-  attackPool: AttackPool;
+type AttackDiceRerollerProps = {
+  attackResults: AttackResults;
+  // function to toggle rerolling
 };
 
-export function AttackDiceRoller({ attackPool }: AttackDiceRollerProps) {
+// what would this even look like
+// + - buttons on each attack result then reroll the selected ones?
+// a form would not work
+
+export function AttackDiceReroller({ attackResults }: AttackDiceRerollerProps) {
   const diceroller: DiceRoller = new DiceRoller();
 
-  const [attackResults, setAttackResults] = useState<AttackResults>();
-  const [rerollingDice, setRerollingDice] = useState<boolean>(false);
+  const [newAttackResults, setNewAttackResults] = useState<AttackResults>();
+  const [diceToReroll, setDiceToReroll] = useState<AttackPool>();
 
   const rollDice = () => {
-    setAttackResults(diceroller.generateAttackResults(attackPool));
+    diceToReroll &&
+      setNewAttackResults(diceroller.generateAttackResults(diceToReroll));
   };
   const clearDiceRoll = () => {
     setAttackResults(undefined);
+  };
+
+  const addRerolledDice = () => {
+    // add new attack results with attack results
   };
 
   return (
@@ -30,7 +40,9 @@ export function AttackDiceRoller({ attackPool }: AttackDiceRollerProps) {
       {attackResults ? (
         <>
           <AttackRollViewer attackResults={attackResults}></AttackRollViewer>
-          {rerollingDice ? null : (
+          {rerollingDice ? (
+            <AttackDiceReroller></AttackDiceReroller>
+          ) : (
             <Button onClick={() => setRerollingDice(true)}>Reroll Dice</Button>
           )}
 

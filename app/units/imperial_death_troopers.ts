@@ -27,7 +27,7 @@ export class ImperialDeathTroopers extends UnitHeavyWeapon {
       weapons,
       heavyWeapon,
       2,
-      "Red",
+      "red",
       "Trooper",
       true,
       true,

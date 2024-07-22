@@ -22,7 +22,7 @@ export class Mark2MediumBlasterTrooper extends UnitNoExtra {
       2,
       [unarmed, a280, mark2MediumBlaster],
       1,
-      "White",
+      "white",
       "Emplacement Trooper",
       true,
       true,

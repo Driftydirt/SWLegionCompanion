@@ -24,7 +24,7 @@ export class ImperialRoyalGuards extends UnitHeavyWeapon {
       [forcePike, ec17],
       heavyWeapon,
       2,
-      "Red",
+      "red",
       "Trooper",
       false,
       false,

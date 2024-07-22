@@ -23,7 +23,7 @@ export class DewbackRider extends UnitNoExtra {
       2,
       weapons,
       1,
-      "Red",
+      "red",
       "Trooper",
       false,
       true,

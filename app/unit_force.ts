@@ -14,7 +14,7 @@ export class UnitForce extends UnitUpgradeCard {
     courage?: number,
     weapon?: Weapon[],
     movementSpeed?: number,
-    defenceDie?: string,
+    defenceDie?: "white" | "red",
     unitType?: string,
     surgeToDefend: boolean = false,
     surgeToHit: boolean = false,

@@ -6,6 +6,11 @@ export interface AttackResults {
   red: AttackResult;
 }
 
+export interface AttackDice {
+  type: "Crit" | "Hit" | "Surge" | "Miss";
+  colour: "White" | "Black" | "Red";
+}
+
 interface AttackResult {
   crits: number;
   hits: number;
@@ -19,8 +24,19 @@ export interface DefenceResult {
   misses: number;
 }
 
+interface AverageCheck {
+  results: DefenceResult;
+  total: number;
+}
+
 export class DiceRoller {
-  constructor() {}
+  private averageCheck: AverageCheck;
+  constructor() {
+    this.averageCheck = {
+      results: { block: 0, surge: 0, misses: 0 },
+      total: 0,
+    };
+  }
 
   private rollDice(sides: number) {
     return 1 + Math.floor(Math.random() * sides);
@@ -142,12 +158,18 @@ export class DiceRoller {
     for (let index = 0; index < numberOfHits; index++) {
       switch (this.rollDice(6)) {
         case 1:
+          this.averageCheck.results.block++;
+          this.averageCheck.total++;
           defenceResult.block++;
           break;
         case 2:
+          this.averageCheck.results.surge++;
+          this.averageCheck.total++;
           defenceResult.surge++;
           break;
         default:
+          this.averageCheck.results.misses++;
+          this.averageCheck.total++;
           defenceResult.misses++;
           break;
       }
@@ -155,11 +177,20 @@ export class DiceRoller {
     return defenceResult;
   }
 
-  public rollDefence(numberOfHits: number, colour: "White" | "Red") {
+  public rollDefence(numberOfHits: number, colour: "white" | "red") {
     const defenceResult: DefenceResult =
-      colour === "White"
+      colour === "white"
         ? this.rollWhiteDefenceDice(numberOfHits)
-        : this.rollWhiteDefenceDice(numberOfHits);
+        : this.rollRedDefenceDice(numberOfHits);
+    console.log(
+      "blocks: " + this.averageCheck.results.block / this.averageCheck.total
+    );
+    console.log(
+      "surges: " + this.averageCheck.results.surge / this.averageCheck.total
+    );
+    console.log(
+      "misses: " + this.averageCheck.results.misses / this.averageCheck.total
+    );
     return defenceResult;
   }
 }

@@ -44,7 +44,7 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
   const [hasUpgradeCards, setHasUpgradesCards] = useState<boolean>();
   const [upgradeCards, setUpgradeCards] = useState<UpgradeCard[]>();
   const [unitType, setUnitType] = useState<string>();
-  const [defenceDie, setDefenceDie] = useState<string>();
+  const [defenceDie, setDefenceDie] = useState<"white" | "red">("white");
   const [movementSpeed, setMovementSpeed] = useState<number>();
   const [surgeToHit, setSurgeToHit] = useState<boolean>();
   const [surgeToDefend, setSurgeToDefend] = useState<boolean>();

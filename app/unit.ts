@@ -16,7 +16,7 @@ export class Unit {
   protected weapon: Weapon[];
   protected modifiers: Modifier[] | undefined;
   protected defeated: boolean;
-  protected defenceDie: string;
+  protected defenceDie: "white" | "red";
   protected surgeToCrit: boolean | undefined;
   protected surgeToHit: boolean | undefined;
   protected surgeToDefend: boolean | undefined;
@@ -33,7 +33,7 @@ export class Unit {
     weapon?: Weapon[],
 
     movementSpeed?: number,
-    defenceDie?: string,
+    defenceDie?: "white" | "red",
     unitType?: string,
     surgeToDefend: boolean = false,
     surgeToHit: boolean = false,
@@ -69,7 +69,7 @@ export class Unit {
       this.surgeToCrit = surgeToCrit;
       this.surgeToHit = surgeToHit;
       this.movementSpeed = movementSpeed ? movementSpeed : 0;
-      this.defenceDie = defenceDie ? defenceDie : "";
+      this.defenceDie = defenceDie ? defenceDie : "white";
       this.unitType = unitType ? unitType : "";
     }
   }
@@ -90,7 +90,7 @@ export class Unit {
     this.unitType = unitType;
   }
 
-  public getDefenceDie(): string {
+  public getDefenceDie(): "white" | "red" {
     return this.defenceDie;
   }
 

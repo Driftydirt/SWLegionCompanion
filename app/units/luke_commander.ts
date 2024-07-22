@@ -21,7 +21,7 @@ export class LukeCommander extends UnitForce {
       3,
       [anakinLightsaber, lukeBlaster],
       2,
-      "Red",
+      "red",
       "Trooper",
       false,
       false,

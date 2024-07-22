@@ -17,7 +17,7 @@ export class UnitHeavyWeapon extends UnitUpgradeCard {
     weapon?: Weapon[],
     heavyWeapon?: HeavyWeapon | undefined,
     movementSpeed?: number,
-    defenceDie?: string,
+    defenceDie?: "white" | "red",
     unitType?: string,
     surgeToDefend: boolean = false,
     surgeToHit: boolean = false,

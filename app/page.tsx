@@ -36,6 +36,7 @@ import { Dlt19Trooper } from "./heavy_weapons/dlt19_trooper";
 import { Dt_f16 } from "./heavy_weapons/dt-f16";
 import { ElectrostaffGuard } from "./heavy_weapons/electrostaff_guard";
 import "./app.scss";
+import { DefenceDiceRoller } from "./ui/defence_dice_roller";
 
 const blankRebelArmy: Army = new Army(
   [
@@ -116,6 +117,7 @@ export default function Home() {
 
   return (
     <>
+      <DefenceDiceRoller></DefenceDiceRoller>
       {faction != undefined ? (
         <ArmyViewer army={faction} onSave={onSave}></ArmyViewer>
       ) : (

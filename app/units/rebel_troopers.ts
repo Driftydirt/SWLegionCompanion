@@ -19,7 +19,7 @@ export class RebelTroopers extends UnitPersonnelHeavyWeapon {
       heavyWeapon,
       personnel,
       2,
-      "White",
+      "white",
       "Trooper",
       true
     );

@@ -19,7 +19,7 @@ export class MandalorianResistance extends UnitHeavyWeapon {
       [combatTraining, westar35BlasterPistols],
       heavyWeapon,
       3,
-      "Red",
+      "red",
       "Trooper",
       true,
       true,

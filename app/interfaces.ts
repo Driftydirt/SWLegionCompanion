@@ -68,7 +68,7 @@ export interface BaseUnitInterface {
   weapons: WeaponInterface[];
   modifiers: ModifierInterface[] | undefined;
   defeated: boolean;
-  defenceDie: string;
+  defenceDie: "white" | "red";
   surgeToCrit: boolean | undefined;
   surgeToHit: boolean | undefined;
   surgeToDefend: boolean | undefined;

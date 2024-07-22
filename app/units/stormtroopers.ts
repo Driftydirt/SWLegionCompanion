@@ -19,7 +19,7 @@ export class Stormtroopers extends UnitPersonnelHeavyWeapon {
       heavyWeapon,
       personnel,
       2,
-      "Red",
+      "red",
       "Trooper",
       false,
       true
