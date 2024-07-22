@@ -10,10 +10,9 @@ import { AttackRollViewer } from "./attack_roll_viewer";
 type AttackDiceRollerProps = {
   attackPool: AttackPool;
 };
+const diceroller: DiceRoller = new DiceRoller();
 
 export function AttackDiceRoller({ attackPool }: AttackDiceRollerProps) {
-  const diceroller: DiceRoller = new DiceRoller();
-
   const [attackResults, setAttackResults] = useState<AttackResults>();
   const [rerollingDice, setRerollingDice] = useState<boolean>(false);
 
@@ -24,17 +23,22 @@ export function AttackDiceRoller({ attackPool }: AttackDiceRollerProps) {
     setAttackResults(undefined);
   };
 
+  const saveAttackResults = (attackResult: AttackResults) => {
+    setAttackResults(attackResult);
+  };
+
   return (
     <>
-      <Button onClick={() => rollDice()}>Roll Attack!</Button>
+      <Button onClick={() => rollDice()}>Roll Attack</Button>
       {attackResults ? (
         <>
-          <AttackRollViewer attackResults={attackResults}></AttackRollViewer>
-          {rerollingDice ? null : (
-            <Button onClick={() => setRerollingDice(true)}>Reroll Dice</Button>
-          )}
-
-          <Button onClick={() => clearDiceRoll()}>Clear Dice Roll!</Button>
+          <Button variant="danger" onClick={() => clearDiceRoll()}>
+            Clear Dice Roll
+          </Button>
+          <AttackRollViewer
+            attackResults={attackResults}
+            saveAttackResults={saveAttackResults}
+          ></AttackRollViewer>
         </>
       ) : null}
     </>

@@ -29,9 +29,20 @@ interface AverageCheck {
   total: number;
 }
 
+interface AttackAverageCheck {
+  results: AttackResult;
+  total: number;
+}
+
 export class DiceRoller {
   private averageCheck: AverageCheck;
+  private attackAverage: AttackAverageCheck;
+
   constructor() {
+    this.attackAverage = {
+      results: { crits: 0, hits: 0, surges: 0, misses: 0 },
+      total: 0,
+    };
     this.averageCheck = {
       results: { block: 0, surge: 0, misses: 0 },
       total: 0,
@@ -75,7 +86,9 @@ export class DiceRoller {
     };
     for (let index = 0; index < amount; index++) {
       switch (this.rollDice(8)) {
-        case 1 | 2 | 3:
+        case 1:
+        case 2:
+        case 3:
           attackResult.hits++;
           break;
         case 4:
@@ -99,17 +112,30 @@ export class DiceRoller {
       misses: 0,
     };
     for (let index = 0; index < amount; index++) {
+      console.log(this.rollDice(8));
       switch (this.rollDice(8)) {
-        case 1 | 2 | 3 | 4 | 5:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          this.attackAverage.results.hits++;
+          this.attackAverage.total++;
           attackResult.hits++;
           break;
         case 6:
+          this.attackAverage.results.crits++;
+          this.attackAverage.total++;
           attackResult.crits++;
           break;
         case 7:
+          this.attackAverage.results.surges++;
+          this.attackAverage.total++;
           attackResult.surges++;
           break;
         default:
+          this.attackAverage.results.misses++;
+          this.attackAverage.total++;
           attackResult.misses++;
           break;
       }
@@ -117,15 +143,30 @@ export class DiceRoller {
     return attackResult;
   }
 
-  public generateAttackResults(attackPool: AttackPool): AttackResults {
+  public generateAttackResults(
+    attackPool: AttackPool | undefined
+  ): AttackResults {
     const attackResults: AttackResults = {
       white: { crits: 0, hits: 0, surges: 0, misses: 0 },
       black: { crits: 0, hits: 0, surges: 0, misses: 0 },
       red: { crits: 0, hits: 0, surges: 0, misses: 0 },
     };
+    if (!attackPool) return attackResults;
     attackResults.white = this.rollWhiteAttackDice(attackPool.whiteDice);
     attackResults.black = this.rollBlackAttackDice(attackPool.blackDice);
     attackResults.red = this.rollRedAttackDice(attackPool.redDice);
+    console.log(
+      "crits: " + this.attackAverage.results.crits / this.attackAverage.total
+    );
+    console.log(
+      "hits: " + this.attackAverage.results.hits / this.attackAverage.total
+    );
+    console.log(
+      "surges: " + this.attackAverage.results.surges / this.attackAverage.total
+    );
+    console.log(
+      "misses: " + this.attackAverage.results.misses / this.attackAverage.total
+    );
     return attackResults;
   }
   private rollRedDefenceDice(numberOfHits: number): DefenceResult {
@@ -136,7 +177,9 @@ export class DiceRoller {
     };
     for (let index = 0; index < numberOfHits; index++) {
       switch (this.rollDice(6)) {
-        case 1 | 2 | 3:
+        case 1:
+        case 2:
+        case 3:
           defenceResult.block++;
           break;
         case 4:

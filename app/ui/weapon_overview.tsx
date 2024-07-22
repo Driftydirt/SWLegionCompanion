@@ -104,7 +104,6 @@ export default function WeaponOverview({
       </Row>
       {!unitDefeated && weaponSelected ? (
         <div>
-          <Button onClick={() => clearSelection()}>Clear Selection</Button>
           <Button
             onClick={() => {
               setAttackPool(generateAttackPool(minisPerWeapon));
@@ -112,16 +111,19 @@ export default function WeaponOverview({
           >
             Generate Attack Pool!
           </Button>{" "}
+          <Button variant="danger" onClick={() => clearSelection()}>
+            Clear Selection
+          </Button>{" "}
           {hasAttackPool ? (
             <div>
               {" "}
+              <Button variant="danger" onClick={() => setAttackPool(undefined)}>
+                Clear Attack Pool
+              </Button>
               {attackPool && displayAttackPool(attackPool)}
               {attackPool ? (
                 <AttackDiceRoller attackPool={attackPool}></AttackDiceRoller>
               ) : null}
-              <Button variant="danger" onClick={() => setAttackPool(undefined)}>
-                Clear Attack Pool
-              </Button>
             </div>
           ) : null}{" "}
         </div>
