@@ -38,18 +38,27 @@ export function DefenceRollViewer({
       {" "}
       {hasBlocks ? (
         <Row>
-          <Col sm={{ span: 4 }}>
-            {" "}
-            <p className="totals">Blocks: </p>
-          </Col>
           {defenceResults.block ? (
             <>
-              <Col sm={{ span: 3 }} style={{ display: "flex" }}>
-                <p className={colour}>{defenceResults.block} </p>
-
-                <div className="defence-dice">
-                  <DefenceDice colour={colour}></DefenceDice>{" "}
-                </div>
+              <Col style={{ display: "flex", marginTop: 8 }}>
+                {[...Array(defenceResults.block)].map((index) => (
+                  <div key={index} className="defence-dice">
+                    <DefenceDice colour={colour} type="Block"></DefenceDice>{" "}
+                  </div>
+                ))}
+              </Col>
+              <Col
+                sm={{ span: 2 }}
+                style={{ display: "flex" }}
+                className="ml-auto "
+              >
+                <img
+                  src={"/icons/defence/BlackBlock.png"}
+                  width={30}
+                  height={30}
+                  style={{ height: 30, marginTop: 20 }}
+                />
+                <p className="icons">{defenceResults.block}</p>
               </Col>
             </>
           ) : null}{" "}
@@ -57,18 +66,27 @@ export function DefenceRollViewer({
       ) : null}
       {hasSurges ? (
         <Row>
-          <Col sm={{ span: 4 }}>
-            {" "}
-            <p className="totals">Surges: </p>
-          </Col>
           {defenceResults.surge ? (
             <>
-              <Col sm={{ span: 3 }} style={{ display: "flex" }}>
-                <p className={colour}>{defenceResults.surge} </p>
-
-                <div className="defence-dice">
-                  <DefenceDice colour={colour}></DefenceDice>{" "}
-                </div>
+              <Col style={{ display: "flex", marginTop: 8 }}>
+                {[...Array(defenceResults.surge)].map((index) => (
+                  <div key={index} className="defence-dice">
+                    <DefenceDice colour={colour} type="Surge"></DefenceDice>{" "}
+                  </div>
+                ))}
+              </Col>
+              <Col
+                sm={{ span: 2 }}
+                style={{ display: "flex" }}
+                className="ml-auto "
+              >
+                <img
+                  src={"/icons/defence/BlackSurge.png"}
+                  width={30}
+                  height={30}
+                  style={{ height: 30, marginTop: 20 }}
+                />
+                <p className="icons">{defenceResults.surge}</p>
               </Col>
             </>
           ) : null}{" "}
@@ -76,18 +94,14 @@ export function DefenceRollViewer({
       ) : null}
       {hasMisses ? (
         <Row>
-          <Col sm={{ span: 4 }}>
-            {" "}
-            <p className="totals">Misses: </p>
-          </Col>
           {defenceResults.misses ? (
             <>
-              <Col sm={{ span: 3 }} style={{ display: "flex" }}>
-                <p className={colour}>{defenceResults.misses} </p>
-
-                <div className="defence-dice">
-                  <DefenceDice colour={colour}></DefenceDice>{" "}
-                </div>
+              <Col style={{ display: "flex", marginTop: 8 }}>
+                {[...Array(defenceResults.misses)].map((index) => (
+                  <div key={index} className="defence-dice">
+                    <DefenceDice colour={colour} type="Blank"></DefenceDice>{" "}
+                  </div>
+                ))}
               </Col>
             </>
           ) : null}{" "}
