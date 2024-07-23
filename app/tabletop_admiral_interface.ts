@@ -1,7 +1,7 @@
 export interface TabletopAdmiralInterface {
   listname: string;
   points: number;
-  faction: string;
+  faction: "empire" | "republic" | "rebel";
   units: TTAUnitInterface[];
 }
 

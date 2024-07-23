@@ -1,0 +1,55 @@
+{
+  "listname": "Cloney bois",
+  "points": 594,
+  "author": "Tabletop Admiral",
+  "armyFaction": "republic",
+  "commandCards": ["Standing Orders"],
+  "contingencies": [],
+  "units": [
+    {
+      "name": "Clone Captain Rex Honorable Soldier",
+      "upgrades": [
+        "Aggressive Tactics",
+        "Up Close and Personal",
+        "Recon Intel"
+      ],
+      "loadout": []
+    },
+    {
+      "name": "Clone Trooper Infantry",
+      "upgrades": ["Z-6 Clone Trooper", "Clone Trooper Infantry"],
+      "loadout": []
+    },
+    {
+      "name": "Clone Trooper Infantry",
+      "upgrades": ["Z-6 Clone Trooper", "Clone Trooper Infantry"],
+      "loadout": []
+    },
+    {
+      "name": "Clone Trooper Infantry",
+      "upgrades": ["Z-6 Clone Trooper", "Clone Trooper Infantry"],
+      "loadout": []
+    },
+    {
+      "name": "Arc Troopers",
+      "upgrades": ["Up Close and Personal"],
+      "loadout": []
+    },
+    {
+      "name": "Arc Troopers",
+      "upgrades": ["Up Close and Personal"],
+      "loadout": []
+    },
+    {
+      "name": "Arc Troopers",
+      "upgrades": ["Up Close and Personal"],
+      "loadout": []
+    }
+  ],
+  "battlefieldDeck": {
+    "scenario": "standard",
+    "conditions": [],
+    "deployment": [],
+    "objective": []
+  }
+}

@@ -24,7 +24,7 @@ import { razorClawsShockProd } from "../weapons/razor_claws_shock_prod";
 import { se14_s } from "../weapons/se14_s";
 
 export class CaptainRex extends UnitNoExtra {
-  constructor(upgrades: UpgradeCard[]) {
+  constructor(upgrades?: UpgradeCard[]) {
     super(
       undefined,
 

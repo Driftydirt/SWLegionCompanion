@@ -9,7 +9,14 @@ import { UnitUpgradeCard } from "./unit_upgrade_card";
 export class Army {
   private units: Unit[] = [];
   private id: string = "";
-  constructor(units?: Unit[], id?: string, armyInterface?: ArmyInterface) {
+  private faction: "rebel" | "empire" | "republic" | undefined;
+  constructor(
+    units?: Unit[],
+    id?: string,
+    armyInterface?: ArmyInterface,
+    faction?: "rebel" | "empire" | "republic"
+  ) {
+    this.faction = faction;
     let interfaceUnits: Unit[] = [];
     if (armyInterface != undefined) {
       armyInterface.units.forEach((unit) => {
@@ -44,6 +51,10 @@ export class Army {
 
   public getId() {
     return this.id;
+  }
+
+  public getFaction() {
+    return this.faction;
   }
 
   public getUnits() {

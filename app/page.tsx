@@ -37,6 +37,8 @@ import { Dt_f16 } from "./heavy_weapons/dt-f16";
 import { ElectrostaffGuard } from "./heavy_weapons/electrostaff_guard";
 import "./app.scss";
 import { DefenceDiceRoller } from "./ui/defence_dice_roller";
+import { parseTabletopAdmiral } from "./json_interpreter_service";
+import * as cloneyBois from "./republic.json";
 
 const blankRebelArmy: Army = new Army(
   [
@@ -54,7 +56,9 @@ const blankRebelArmy: Army = new Army(
       new OffensivePush(),
     ]),
   ],
-  "rebels"
+  "defaultRebel",
+  undefined,
+  "rebel"
 );
 const blankEmpireArmy: Army = new Army(
   [
@@ -71,14 +75,18 @@ const blankEmpireArmy: Army = new Army(
     new ImperialRoyalGuards(new ElectrostaffGuard()),
     new DewbackRider(t21),
   ],
+  "defaultEmpire",
+  undefined,
   "empire"
 );
+const republicArmyInit: Army = parseTabletopAdmiral(JSON.stringify(cloneyBois));
 export default function Home() {
   let empireArmyInit = blankEmpireArmy;
   let rebelArmyInit = blankRebelArmy;
 
   const [rebelArmy, setRebelArmy] = useState<Army>(rebelArmyInit);
   const [empireArmy, setEmpireArmy] = useState<Army>(empireArmyInit);
+  const [republicArmy, setRepublicArmy] = useState<Army>(republicArmyInit);
   const [savedRebelArmy, setSavedRebelArmy] = useState<Army>();
   const [savedEmpireArmy, setSavedEmpireArmy] = useState<Army>();
 
@@ -136,6 +144,7 @@ export default function Home() {
               Saved Empire Army
             </Button>
           ) : null}
+          <Button onClick={() => setFaction(republicArmy)}>New Republic</Button>
         </>
       )}
     </>

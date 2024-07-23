@@ -1,6 +1,6 @@
 import { UpgradeCard } from "@/app/upgrade_card";
 
-export class Vigilance extends UpgradeCard {
+export class AggressiveTactics extends UpgradeCard {
   constructor() {
     super(
       undefined,

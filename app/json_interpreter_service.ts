@@ -1,3 +1,4 @@
+import { Army } from "./army";
 import { ForcePush } from "./force_upgrades/force_push";
 import { ForceReflexes } from "./force_upgrades/force_reflexes";
 import { SaberThrow } from "./force_upgrades/saber_throw";
@@ -5,30 +6,45 @@ import { HeavyWeapon } from "./heavy_weapon";
 import { Dlt19Trooper } from "./heavy_weapons/dlt19_trooper";
 import { Dt_f16 } from "./heavy_weapons/dt-f16";
 import { ElectrostaffGuard } from "./heavy_weapons/electrostaff_guard";
+import { z6CloneTrooper } from "./heavy_weapons/z6_clone_trooper";
 import { Unit } from "./interfaces";
 import { Personnel } from "./personnel";
+import { CloneTrooper } from "./personnel/clone_trooper";
 import { Stormtrooper } from "./personnel/stormtrooper";
 import {
   TTAUnitInterface,
   TabletopAdmiralInterface,
 } from "./tabletop_admiral_interface";
+import { ArcTrooper } from "./units/arc_trooper";
+import { CaptainRex } from "./units/captain_rex";
+import { CloneTrooperInfantry } from "./units/clone_trooper_infantry";
 import { DewbackRider } from "./units/dewback_rider";
 import { ImperialDeathTroopers } from "./units/imperial_death_troopers";
 import { ImperialRoyalGuards } from "./units/imperial_royal_guards";
 import { Stormtroopers } from "./units/stormtroopers";
 import { VaderCommander } from "./units/vader_commander";
 import { UpgradeCard } from "./upgrade_card";
+import { AggressiveTactics } from "./upgrade_cards/command/aggressive_tactics";
+import { ReconIntel } from "./upgrade_cards/gear/recon_intel";
+import { UpCloseAndPersonal } from "./upgrade_cards/training/up_close_and_personal";
 import { Weapon } from "./weapon";
 import { e11_d_focused_config } from "./weapons/e11d_focused";
 import { t21 } from "./weapons/t21";
 
 export function parseTabletopAdmiral(json: string) {
+  let army: Army = new Army();
   const parsedJson = JSON.parse(json);
   if (parsedJson satisfies TabletopAdmiralInterface) {
     const tabletopAdmiralInterface = parsedJson as TabletopAdmiralInterface;
     const units = unitParser(tabletopAdmiralInterface.units);
-    console.log(units);
+    army = new Army(
+      units,
+      tabletopAdmiralInterface.listname,
+      undefined,
+      tabletopAdmiralInterface.faction
+    );
   }
+  return army;
 }
 
 function unitParser(unitInterfaces: TTAUnitInterface[]) {
@@ -40,13 +56,10 @@ function unitParser(unitInterfaces: TTAUnitInterface[]) {
     const upgradeCards: UpgradeCard[] = [];
     unitInterface.upgrades.forEach((upgrade) => {
       if (upgradeLookup[upgrade]) upgradeCards.push(upgradeLookup[upgrade]);
-      else return;
       if (heavyWeaponLookup[upgrade]) heavyWeapon = heavyWeaponLookup[upgrade];
-      else return;
       if (weaponsLookup[upgrade]) weapons = weaponsLookup[upgrade];
-      else return;
       if (personnelLookup[upgrade]) personnel = personnelLookup[upgrade];
-      else return;
+      return;
     });
     const unit = unitLookup[unitInterface.name];
     if (unit satisfies UnitLambda)
@@ -73,18 +86,27 @@ const unitLookup: Record<string, UnitLambda> = {
     new ImperialRoyalGuards(heavyWeapon, upgrades),
   "Dewback Rider": (upgrades, heavyWeapon, personnel, armament) =>
     new DewbackRider(armament),
+  "Clone Captain Rex Honorable Soldier": (upgrades) => new CaptainRex(upgrades),
+  "Clone Trooper Infantry": (upgrades, heavyWeapon, personnel) =>
+    new CloneTrooperInfantry(upgrades, heavyWeapon, personnel),
+  "Arc Troopers": (upgrades, heavyWeapon) =>
+    new ArcTrooper(heavyWeapon, upgrades),
 };
 
 const upgradeLookup: Record<string, UpgradeCard> = {
   "Force Push": new ForcePush(),
   "Force Reflexes": new ForceReflexes(),
   "Saber Throw": new SaberThrow(),
+  "Aggressive Tactics": new AggressiveTactics(),
+  "Up Close and Personal": new UpCloseAndPersonal(),
+  "Recon Intel": new ReconIntel(),
 };
 
 const heavyWeaponLookup: Record<string, HeavyWeapon> = {
   "DLT-19 Stormtrooper": new Dlt19Trooper(),
   "DT-F16": new Dt_f16(),
   "Electrostaff Guard": new ElectrostaffGuard(),
+  "Z-6 Clone Trooper": new z6CloneTrooper(),
 };
 
 const weaponsLookup: Record<string, Weapon> = {
@@ -94,4 +116,5 @@ const weaponsLookup: Record<string, Weapon> = {
 
 const personnelLookup: Record<string, Personnel> = {
   Stormtrooper: new Stormtrooper(),
+  "Clone Trooper Infantry": new CloneTrooper(),
 };
