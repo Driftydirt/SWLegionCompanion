@@ -53,7 +53,7 @@ export function DefenceDiceRoller({}) {
           {" "}
           <Row>
             <Col sm={{ span: 3 }} style={{ display: "flex" }}>
-              <p className={colour}>{amount} </p>
+              <p className={colour + "-defence"}>{amount} </p>
               <div className="defence-dice">
                 <DefenceDice colour={colour}></DefenceDice>
               </div>

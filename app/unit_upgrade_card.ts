@@ -47,7 +47,8 @@ export class UnitUpgradeCard extends Unit {
       this.upgradeCards = upgradeCards;
     }
 
-    this.hasUpgradeCards = this.upgradeCards != undefined;
+    this.hasUpgradeCards =
+      this.upgradeCards != undefined && this.upgradeCards.length > 0;
   }
   public getHasUpgradeCards() {
     return this.hasUpgradeCards;

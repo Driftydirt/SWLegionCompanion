@@ -39,7 +39,21 @@
   font-size: 35px;
 
   color: rgb(255, 255, 255);
+  -webkit-text-stroke-color: rgb(0, 0, 0);
+}
+.white-defence {
+  @extend .icons;
+  font-size: 35px;
+
+  color: rgb(255, 255, 255);
   -webkit-text-stroke-color: rgb(142, 1, 1);
+}
+.red-defence {
+  @extend .icons;
+  font-size: 35px;
+
+  color: rgb(142, 1, 1);
+  -webkit-text-stroke-color: rgb(205, 202, 202);
 }
 .red {
   @extend .icons;
