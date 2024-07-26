@@ -64,6 +64,7 @@ export function CommandCardOverview({ cards }: CommandCardOverviewProps) {
           {usedCards &&
             usedCards.map((card) => (
               <CommandCardViewer
+                key={card.getName()}
                 card={card}
                 onExhausted={onExhausted}
               ></CommandCardViewer>
@@ -72,6 +73,7 @@ export function CommandCardOverview({ cards }: CommandCardOverviewProps) {
           {unusedCards &&
             unusedCards.map((card) => (
               <CommandCardViewer
+                key={card.getName()}
                 card={card}
                 onExhausted={onExhausted}
               ></CommandCardViewer>
