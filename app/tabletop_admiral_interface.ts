@@ -3,6 +3,7 @@ export interface TabletopAdmiralInterface {
   points: number;
   faction: "empire" | "republic" | "rebel";
   units: TTAUnitInterface[];
+  commandCards: string[];
 }
 
 export interface TTAUnitInterface {

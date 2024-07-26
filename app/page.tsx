@@ -39,6 +39,13 @@ import "./app.scss";
 import { DefenceDiceRoller } from "./ui/defence_dice_roller";
 import { parseTabletopAdmiral } from "./json_interpreter_service";
 import * as cloneyBois from "./republic.json";
+import { Ambush } from "./command_cards/1_pip/ambush";
+import { Implacable } from "./command_cards/1_pip/implacable";
+import { NewWaysToMotivateThem } from "./command_cards/2_pip/new_ways_to_motivate_them";
+import { Push } from "./command_cards/2_pip/push";
+import { MasterOfEvil } from "./command_cards/3_pip/master_of_evil";
+import { Assault } from "./command_cards/3_pip/assault";
+import { StandingOrders } from "./command_cards/4_pip/standing_orders";
 
 const blankRebelArmy: Army = new Army(
   [
@@ -77,7 +84,16 @@ const blankEmpireArmy: Army = new Army(
   ],
   "defaultEmpire",
   undefined,
-  "empire"
+  "empire",
+  [
+    new Ambush(),
+    new Implacable(),
+    new NewWaysToMotivateThem(),
+    new Push(),
+    new MasterOfEvil(),
+    new Assault(),
+    new StandingOrders(),
+  ]
 );
 const republicArmyInit: Army = parseTabletopAdmiral(JSON.stringify(cloneyBois));
 export default function Home() {

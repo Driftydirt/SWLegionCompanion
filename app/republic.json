@@ -1,9 +1,17 @@
 {
-  "listname": "Cloney bois",
+  "listname": "501st 600pts",
   "points": 594,
   "author": "Tabletop Admiral",
   "armyFaction": "republic",
-  "commandCards": ["Standing Orders"],
+  "commandCards": [
+    "We're Not Programmed",
+    "Tactical Planning",
+    "Leaders of the 501st",
+    "Call Me Captain",
+    "Ambush",
+    "Lead from the Front",
+    "Standing Orders"
+  ],
   "contingencies": [],
   "units": [
     {

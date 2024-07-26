@@ -1,3 +1,4 @@
+import { CommandCard } from "./command_card";
 import { AttackPool } from "./ui/helpers";
 import { UnitForce } from "./unit_force";
 import { UnitHeavyWeapon } from "./unit_heavy_weapon";
@@ -16,6 +17,7 @@ export type Unit =
 export interface ArmyInterface {
   id: string;
   units: UnitInterface[];
+  commandCards: CommandCard[];
 }
 
 export type UnitInterface =
@@ -122,4 +124,12 @@ export interface UnitPersonnelHeavyWeaponInterface {
   personnel: PersonnelInterface | undefined;
   heavyWeaponDefeated: boolean;
   unitUpgradeCard: UnitUpgradeCardInterface;
+}
+
+export interface CommandCardInterface {
+  name: string;
+  description: string;
+  pips: number;
+  orderedUnits: string;
+  exhausted: boolean;
 }

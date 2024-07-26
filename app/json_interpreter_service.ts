@@ -1,4 +1,17 @@
 import { Army } from "./army";
+import { CommandCard } from "./command_card";
+import { Ambush } from "./command_cards/1_pip/ambush";
+import { CallMeCaptain } from "./command_cards/1_pip/call_me_captain";
+import { Implacable } from "./command_cards/1_pip/implacable";
+import { LeadFromTheFront } from "./command_cards/2_pip/lead_from_the_front";
+import { NewWaysToMotivateThem } from "./command_cards/2_pip/new_ways_to_motivate_them";
+import { Push } from "./command_cards/2_pip/push";
+import { TacticalPlanning } from "./command_cards/2_pip/tactical_planning";
+import { Assault } from "./command_cards/3_pip/assault";
+import { LeadersOfThe501st } from "./command_cards/3_pip/leaders_of_the_501";
+import { MasterOfEvil } from "./command_cards/3_pip/master_of_evil";
+import { WereNotProgrammed } from "./command_cards/3_pip/were_not_programmed";
+import { StandingOrders } from "./command_cards/4_pip/standing_orders";
 import { ForcePush } from "./force_upgrades/force_push";
 import { ForceReflexes } from "./force_upgrades/force_reflexes";
 import { SaberThrow } from "./force_upgrades/saber_throw";
@@ -37,11 +50,15 @@ export function parseTabletopAdmiral(json: string) {
   if (parsedJson satisfies TabletopAdmiralInterface) {
     const tabletopAdmiralInterface = parsedJson as TabletopAdmiralInterface;
     const units = unitParser(tabletopAdmiralInterface.units);
+    const commandCards = commandCardsParser(
+      tabletopAdmiralInterface.commandCards
+    );
     army = new Army(
       units,
       tabletopAdmiralInterface.listname,
       undefined,
-      tabletopAdmiralInterface.faction
+      tabletopAdmiralInterface.faction,
+      commandCards
     );
   }
   return army;
@@ -66,6 +83,13 @@ function unitParser(unitInterfaces: TTAUnitInterface[]) {
       units.push(unit(upgradeCards, heavyWeapon, personnel, weapons));
   });
   return units;
+}
+function commandCardsParser(commandCardsString: string[]) {
+  const commandCards: CommandCard[] = [];
+  commandCardsString.forEach((commandCard) => {
+    commandCards.push(commandCardLookup[commandCard]);
+  });
+  return commandCards;
 }
 
 type UnitLambda = (
@@ -117,4 +141,19 @@ const weaponsLookup: Record<string, Weapon> = {
 const personnelLookup: Record<string, Personnel> = {
   Stormtrooper: new Stormtrooper(),
   "Clone Trooper Infantry": new CloneTrooper(),
+};
+
+const commandCardLookup: Record<string, CommandCard> = {
+  "Standing Orders": new StandingOrders(),
+  Implacable: new Implacable(),
+  Assault: new Assault(),
+  Ambush: new Ambush(),
+  "Master of Evil": new MasterOfEvil(),
+  "New Ways to Motivate Them": new NewWaysToMotivateThem(),
+  Push: new Push(),
+  "We're Not Programmed": new WereNotProgrammed(),
+  "Tactical Planning": new TacticalPlanning(),
+  "Leaders of the 501st": new LeadersOfThe501st(),
+  "Call Me Captain": new CallMeCaptain(),
+  "Lead from the Front": new LeadFromTheFront(),
 };
