@@ -6,7 +6,7 @@ export class Relentless extends Modifier {
       undefined,
 
       "Relentless",
-      "After a unit that has the Relentless keyword performs a move action, it may perform a free attack action."
+      `After a unit that has the Relentless keyword performs a move action, it may perform a free attack action.`
     );
   }
 }

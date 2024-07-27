@@ -6,7 +6,7 @@ export class Agile extends Modifier {
       undefined,
 
       "Agile",
-      "During the Apply Cover step, a defending unit cannot use light or heavy cover to cancel hit hit symbol results produced by an attack pool that contains dice added by a weapon with the Blast keyword.",
+      "The Agile keyword allows a unit to gain a number of dodge tokens equal to X each time it performs a standard move as part of an action or free action.",
       amount
     );
   }

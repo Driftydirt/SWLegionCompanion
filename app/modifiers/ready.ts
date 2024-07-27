@@ -6,7 +6,7 @@ export class Ready extends Modifier {
       undefined,
 
       "Ready",
-      "After a unit with the Ready X keyword performs a standby action, it gains X aim tokens.",
+      `After a unit with the Ready X keyword performs a standby action, it gains X aim tokens.`,
       amount
     );
   }

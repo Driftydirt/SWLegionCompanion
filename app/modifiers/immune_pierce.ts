@@ -6,7 +6,9 @@ export class ImmunePierce extends Modifier {
       undefined,
 
       "Immune: Pierce",
-      "While a unit with the Immune: Pierce keyword is defending, the attacker cannot use the Pierce X weapon keyword to cancel block block Icon results on defence dice during the Modify Defence Dice step.",
+      `While a unit with the Immune: Pierce keyword is defending, 
+      the attacker cannot use the Pierce X weapon keyword to cancel block results
+      on defence dice during the Modify Defence Dice step.`,
       amount
     );
   }

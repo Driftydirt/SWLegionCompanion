@@ -6,7 +6,8 @@ export class Inspire extends Modifier {
       undefined,
 
       "Inspire",
-      "At the end of a unit with the Inspire X keyword’s activation, remove up to X total suppression tokens from other friendly units at  range 1–2.",
+      `At the end of a unit with the Inspire X keyword’s activation,
+       remove up to X total suppression tokens from other friendly units at  range 1–2.`,
       amount
     );
   }

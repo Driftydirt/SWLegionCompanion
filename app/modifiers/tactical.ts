@@ -6,7 +6,8 @@ export class Tactical extends Modifier {
       undefined,
 
       "Tactical",
-      "The Tactical X keyword allows a unit to gain a number of aim tokens equal to X each time it performs a standard move as part of an action or free action.",
+      `The Tactical X keyword allows a unit to gain a number of aim tokens equal
+      to X each time it performs a standard move as part of an action or free action.`,
       amount
     );
   }

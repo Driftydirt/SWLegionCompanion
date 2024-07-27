@@ -46,6 +46,14 @@ import { Push } from "./command_cards/2_pip/push";
 import { MasterOfEvil } from "./command_cards/3_pip/master_of_evil";
 import { Assault } from "./command_cards/3_pip/assault";
 import { StandingOrders } from "./command_cards/4_pip/standing_orders";
+import { FactionStore } from "./faction_store";
+import { FactionSelect } from "./ui/faction_select";
+import { YouServeYourMasterWell } from "./command_cards/1_pip/you_serve_your_master_well";
+import { SonOfSkywalker } from "./command_cards/1_pip/son_of_skywalker";
+import { FullOfSurprises } from "./command_cards/2_pip/full_of_suprises";
+import { MyAllyIsTheForce } from "./command_cards/2_pip/my_ally_is_the_force";
+import { IAmAJedi } from "./command_cards/3_pip/i_am_a_jedi";
+import { ReturnOfTheJedi } from "./command_cards/3_pip/return_of_the_jedi";
 
 const blankRebelArmy: Army = new Army(
   [
@@ -65,7 +73,16 @@ const blankRebelArmy: Army = new Army(
   ],
   "defaultRebel",
   undefined,
-  "rebel"
+  "rebel",
+  [
+    new YouServeYourMasterWell(),
+    new SonOfSkywalker(),
+    new FullOfSurprises(),
+    new MyAllyIsTheForce(),
+    new IAmAJedi(),
+    new ReturnOfTheJedi(),
+    new StandingOrders(),
+  ]
 );
 const blankEmpireArmy: Army = new Army(
   [
@@ -96,6 +113,12 @@ const blankEmpireArmy: Army = new Army(
   ]
 );
 const republicArmyInit: Army = parseTabletopAdmiral(JSON.stringify(cloneyBois));
+const factionStore: FactionStore = new FactionStore(
+  [blankEmpireArmy],
+  [blankRebelArmy],
+  [republicArmyInit],
+  []
+);
 export default function Home() {
   let empireArmyInit = blankEmpireArmy;
   let rebelArmyInit = blankRebelArmy;
@@ -106,17 +129,21 @@ export default function Home() {
   const [savedRebelArmy, setSavedRebelArmy] = useState<Army>();
   const [savedEmpireArmy, setSavedEmpireArmy] = useState<Army>();
 
-  const [faction, setFaction] = useState<Army>();
+  const [selectedArmy, setSelectedArmy] = useState<Army>();
   const onSave = () => {
-    if (faction && typeof window !== "undefined") {
-      const armyInterface = faction.toInterface();
+    if (selectedArmy && typeof window !== "undefined") {
+      const armyInterface = selectedArmy.toInterface();
       window.localStorage.setItem(
-        faction?.getId(),
+        selectedArmy?.getId(),
         JSON.stringify(armyInterface)
       );
     }
-    setFaction(undefined);
+    setSelectedArmy(undefined);
     return;
+  };
+
+  const onSetArmy = (army: Army) => {
+    setSelectedArmy(army);
   };
 
   useEffect(() => {
@@ -142,26 +169,15 @@ export default function Home() {
   return (
     <>
       <DefenceDiceRoller></DefenceDiceRoller>
-      {faction != undefined ? (
-        <ArmyViewer army={faction} onSave={onSave}></ArmyViewer>
+
+      {/* <TabletopAdmiralImport></TabletopAdmiralImport> */}
+      {selectedArmy != undefined ? (
+        <ArmyViewer army={selectedArmy} onSave={onSave}></ArmyViewer>
       ) : (
-        <>
-          <Button onClick={() => setFaction(rebelArmy)}>New Rebels</Button>
-
-          {savedRebelArmy ? (
-            <Button onClick={() => setFaction(savedRebelArmy)}>
-              Saved Rebel Army
-            </Button>
-          ) : null}
-          <Button onClick={() => setFaction(empireArmy)}>New Empire</Button>
-
-          {savedEmpireArmy ? (
-            <Button onClick={() => setFaction(savedEmpireArmy)}>
-              Saved Empire Army
-            </Button>
-          ) : null}
-          <Button onClick={() => setFaction(republicArmy)}>New Republic</Button>
-        </>
+        <FactionSelect
+          factionStore={factionStore}
+          setArmy={onSetArmy}
+        ></FactionSelect>
       )}
     </>
   );

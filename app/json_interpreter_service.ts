@@ -3,13 +3,19 @@ import { CommandCard } from "./command_card";
 import { Ambush } from "./command_cards/1_pip/ambush";
 import { CallMeCaptain } from "./command_cards/1_pip/call_me_captain";
 import { Implacable } from "./command_cards/1_pip/implacable";
+import { SonOfSkywalker } from "./command_cards/1_pip/son_of_skywalker";
+import { YouServeYourMasterWell } from "./command_cards/1_pip/you_serve_your_master_well";
+import { FullOfSurprises } from "./command_cards/2_pip/full_of_suprises";
 import { LeadFromTheFront } from "./command_cards/2_pip/lead_from_the_front";
+import { MyAllyIsTheForce } from "./command_cards/2_pip/my_ally_is_the_force";
 import { NewWaysToMotivateThem } from "./command_cards/2_pip/new_ways_to_motivate_them";
 import { Push } from "./command_cards/2_pip/push";
 import { TacticalPlanning } from "./command_cards/2_pip/tactical_planning";
 import { Assault } from "./command_cards/3_pip/assault";
+import { IAmAJedi } from "./command_cards/3_pip/i_am_a_jedi";
 import { LeadersOfThe501st } from "./command_cards/3_pip/leaders_of_the_501";
 import { MasterOfEvil } from "./command_cards/3_pip/master_of_evil";
+import { ReturnOfTheJedi } from "./command_cards/3_pip/return_of_the_jedi";
 import { WereNotProgrammed } from "./command_cards/3_pip/were_not_programmed";
 import { StandingOrders } from "./command_cards/4_pip/standing_orders";
 import { ForcePush } from "./force_upgrades/force_push";
@@ -156,4 +162,10 @@ const commandCardLookup: Record<string, CommandCard> = {
   "Leaders of the 501st": new LeadersOfThe501st(),
   "Call Me Captain": new CallMeCaptain(),
   "Lead from the Front": new LeadFromTheFront(),
+  "You Serve Your Master Well": new YouServeYourMasterWell(),
+  "Son of Skywalker": new SonOfSkywalker(),
+  "Return of the Jedi": new ReturnOfTheJedi(),
+  "I am a Jedi": new IAmAJedi(),
+  "My Ally Is the Force": new MyAllyIsTheForce(),
+  "Full of Surprises": new FullOfSurprises(),
 };

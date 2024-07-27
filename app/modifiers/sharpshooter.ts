@@ -6,7 +6,8 @@ export class Sharpshooter extends Modifier {
       undefined,
 
       "Sharpshooter",
-      "During the Determine Cover step, a unit with the Sharpshooter X keyword subtracts X from the numerical value of the defender’s cover.",
+      `During the Determine Cover step, a unit with the Sharpshooter X keyword subtracts X 
+      from the numerical value of the defender’s cover.`,
       amount
     );
   }

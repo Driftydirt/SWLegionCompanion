@@ -10,7 +10,7 @@ import { UnitUpgradeCard } from "./unit_upgrade_card";
 export class Army {
   private units: Unit[] = [];
   private id: string = "";
-  private faction: "rebel" | "empire" | "republic" | undefined;
+  private faction: "rebel" | "empire" | "republic" | "separatist" | undefined;
   private commandCards: CommandCard[];
   constructor(
     units?: Unit[],
