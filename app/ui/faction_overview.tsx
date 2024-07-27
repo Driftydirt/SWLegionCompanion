@@ -53,7 +53,7 @@ export function FactionOverview({
 
               {armies &&
                 armies.map((army) => (
-                  <div className="army-card">
+                  <div key={army.getId()} className="army-card">
                     <Card onClick={() => setArmy(army)}>
                       <p className="army-title" style={{ marginBottom: 0 }}>
                         {army.getId()}
