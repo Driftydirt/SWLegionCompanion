@@ -21,6 +21,14 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.spec.ts",
+
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "custom-matchers.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
