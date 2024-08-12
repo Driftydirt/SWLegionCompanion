@@ -18,6 +18,7 @@ type WeaponOverviewProps = {
   maxMinis: number;
   heavyWeaponDefeated: boolean;
   unitDefeated: boolean;
+  hasLightSaberThrow: boolean;
 };
 //updates minis per weapon for using in generating attack pool
 export default function WeaponOverview({
@@ -26,6 +27,7 @@ export default function WeaponOverview({
   maxMinis,
   heavyWeaponDefeated,
   unitDefeated,
+  hasLightSaberThrow,
 }: WeaponOverviewProps) {
   const [attackPool, setAttackPool] = useState<AttackPool>();
   const [hasAttackPool, setHasAttackPool] = useState<boolean>();
@@ -122,7 +124,10 @@ export default function WeaponOverview({
               </Button>
               {attackPool && displayAttackPool(attackPool)}
               {attackPool ? (
-                <AttackDiceRoller attackPool={attackPool}></AttackDiceRoller>
+                <AttackDiceRoller
+                  originalAttackPool={attackPool}
+                  hasLightSaberThrow={hasLightSaberThrow}
+                ></AttackDiceRoller>
               ) : null}
             </div>
           ) : null}{" "}

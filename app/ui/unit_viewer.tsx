@@ -247,6 +247,11 @@ export default function UnitViewer({ unit }: UnitViewerProps) {
                 : currentMinis
             }
             unitDefeated={unitDefeated}
+            hasLightSaberThrow={
+              upgradeCards?.findIndex(
+                (card) => card.getName() === "Saber Throw"
+              ) != -1
+            }
           ></WeaponOverview>
         )}
       </Col>
